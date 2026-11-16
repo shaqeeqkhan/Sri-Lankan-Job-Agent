@@ -189,7 +189,8 @@ function helpText(command?: Command): string {
 
 function print(envelope: Envelope, command: Command, json: boolean): void {
   if (json) {
-    process.stdout.write(`${JSON.stringify(envelope, null, 2)}\n`);
+    // One line, no indentation: an agent pays for every space, and nothing reads this by eye (drop --json for that).
+    process.stdout.write(`${JSON.stringify(envelope)}\n`);
     return;
   }
   if (envelope.ok) {
@@ -210,7 +211,7 @@ export async function main(argv: string[], ctx?: Context): Promise<number> {
   } catch (err) {
     if (!(err instanceof UsageError)) throw err;
     if (wantsJson) {
-      process.stdout.write(`${JSON.stringify({ ok: false, command: null, error: { code: 'INVALID_INPUT', message: err.message } }, null, 2)}\n`);
+      process.stdout.write(`${JSON.stringify({ ok: false, command: null, error: { code: 'INVALID_INPUT', message: err.message } })}\n`);
     } else process.stderr.write(`${err.message}\n`);
     return 2;
   }

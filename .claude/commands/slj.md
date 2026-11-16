@@ -3,7 +3,7 @@ description: SriLankanJobs shortcuts - /slj jobs, /slj more, /slj why <n>, /slj 
 argument-hint: jobs | more [filter] | why <n> | cv <n> | change <what>
 ---
 
-Read `AGENTS.md` and `modes/_shared.md` if you have not this session. These shortcuts do exactly what the plain-English requests in AGENTS.md do; nothing here is Claude-only.
+`AGENTS.md` is already loaded through `CLAUDE.md`; read `modes/_shared.md` if you have not this session. These shortcuts do exactly what the plain-English requests in AGENTS.md do; nothing here is Claude-only.
 
 Arguments: `$ARGUMENTS`
 

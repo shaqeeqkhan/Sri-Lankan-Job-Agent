@@ -25,7 +25,7 @@ const companies = (d: any) => d.candidates.map((c: any) => c.company);
 test('prefilter ranks open, eligible jobs; title, location and since gates; closed jobs never appear', async () => {
   const ctx = matchCtx();
   seedVaried(ctx);
-  const d = await run(matchPrefilter, {}, ctx);
+  const d = await run(matchPrefilter, { explain: true }, ctx);
   assert.deepEqual(new Set(companies(d)), new Set(['Dialog Axiata', 'John Keells IT', 'Remote Co']));
   assert.equal(d.pool.open, 8, 'Closed Co (closing date passed) is not open');
   assert.equal(d.pool.eligible, 3);
@@ -115,7 +115,7 @@ test('offset windows count scored jobs, so --offset 60 is the next window', asyn
   assert.equal(w0.candidates.length, 3);
   assert.equal(w0.next_offset, 3);
   await run(scoreSave, { scores: w0.candidates.map((c: any) => item(c.id, 70)) }, ctx);
-  const w1 = await run(matchPrefilter, { limit: 3, offset: 3 }, ctx);
+  const w1 = await run(matchPrefilter, { limit: 3, offset: 3, explain: true }, ctx);
   assert.deepEqual(w1.candidates.map((c: any) => c.rank), [4, 5, 6]);
   assert.equal(w1.next_offset, 6);
   assert.equal((await run(matchPrefilter, { limit: 3, offset: 0 }, ctx)).candidates.length, 0);
@@ -146,11 +146,42 @@ test('skills rescue: an unusual title with the CV\'s skills in the ad is eligibl
     { ref: 'r3', source_url: 'https://xpress.jobs/jobs/r3', title: 'Insights Analyst', company: 'No Skills Co', location: 'Colombo', closing_date: '2026-11-30', description: 'Great team.' },
     { ref: 'r4', source_url: 'https://xpress.jobs/jobs/r4', title: 'Data Analyst', company: 'Title Co', location: 'Colombo', closing_date: '2026-11-30', description: DESC() },
   ]);
-  const d = await run(matchPrefilter, {}, ctx);
+  const d = await run(matchPrefilter, { explain: true }, ctx);
   const by = new Map(d.candidates.map((c: any) => [c.company, c.prefilter.eligible_by]));
   assert.equal(by.get('Unusual Title Co'), 'skills');
   assert.equal(by.get('Title Co'), 'title');
   assert.ok(!by.has('Sales Co'), 'a sales title is another job, whatever the ad mentions');
   assert.ok(!by.has('No Skills Co'));
   assert.ok(d.candidates.findIndex((c: any) => c.company === 'Title Co') < d.candidates.findIndex((c: any) => c.company === 'Unusual Title Co'));
+});
+
+test('batches: prefilter hands out score_batch candidates per call, lean by default; --batch 0 is the whole window', async () => {
+  const ctx = matchCtx();
+  seedJobs(
+    ctx,
+    Array.from({ length: 23 }, (_, i) => ({
+      ref: `b${i}`, source_url: `https://xpress.jobs/jobs/b${i}`, title: 'Data Analyst', company: `Batch ${i}`, location: 'Colombo', closing_date: '2026-12-01', description: DESC(`- Item ${i}`),
+    })),
+  );
+  const all = await run(matchPrefilter, { batch: 0, explain: true }, ctx);
+  assert.equal(all.candidates.length, 23);
+  assert.equal(all.left_in_window, 0);
+
+  const seen: string[] = [];
+  const sizes: number[] = [];
+  for (let guard = 0; guard < 10; guard++) {
+    const d = await run(matchPrefilter, {}, ctx);
+    if (!d.candidates.length) break;
+    sizes.push(d.candidates.length);
+    assert.equal(d.left_in_window, 23 - seen.length - d.candidates.length);
+    for (const c of d.candidates) {
+      // Lean: nothing the scorer does not need.
+      assert.deepEqual(Object.keys(c).sort(), ['closing_date', 'company', 'id', 'is_image_ad', 'location', 'remote', 'requirements_excerpt', 'title']);
+    }
+    seen.push(...d.candidates.map((c: any) => c.id));
+    await run(scoreSave, { scores: d.candidates.map((c: any) => item(c.id, 70)) }, ctx);
+  }
+  assert.deepEqual(sizes, [10, 10, 3]);
+  // Same jobs in the same (rank) order as the whole window at once.
+  assert.deepEqual(seen, all.candidates.map((c: any) => c.id));
 });

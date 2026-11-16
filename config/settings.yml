@@ -13,8 +13,9 @@ stars:
   two: 40
 
 top_n: 20                 # rows in every top report page; always 20 when the pool allows
-prefilter_n: 60           # candidates the code prefilter hands to LLM scoring per page
-score_batch: 10           # jobs per scoring batch
+prefilter_n: 60           # candidates the code prefilter hands to LLM scoring per page. Scoring is most of a run's AI usage:
+                          # 40 costs about a third less, with a slightly higher chance of missing a good job ranked 41-60
+score_batch: 10           # jobs `slj match prefilter` returns per call, scored and saved together
 rubric_version: v1        # bump when modes/score.md changes; cached scores are keyed by it
 
 scan:

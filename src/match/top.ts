@@ -27,6 +27,8 @@ export interface TopInput {
   like?: string;
   /** The agent's "How your CV reads to this market" paragraph. */
   summary?: string;
+  /** Return `page_markdown` (the page as shown to the person) instead of `rows`. */
+  brief?: boolean;
 }
 
 export interface TopRow {
@@ -173,7 +175,10 @@ export function recurringGaps(rows: { n: number; gaps: string[] }[], max = 10): 
   return [...m.values()].sort((a, b) => b.count - a.count || a.gap.localeCompare(b.gap)).slice(0, max);
 }
 
-function writeReport(ctx: Context, r: DayReport, info: { open: number; scored: number; sites: number }) {
+const CLOSING_LINE = 'Say **"CV for #2"** to get a tailored CV, **"why #5?"** for the full breakdown, or **"more jobs"** for the next 20.';
+
+/** The pieces of the day's report: the header lines and a table for any set of numbers. */
+function reportParts(ctx: Context, r: DayReport, info: { open: number; scored: number; sites: number }) {
   const ids = r.numbered;
   const jobs = jobsById(ctx.db(), ids);
   const line = (n: number): string => {
@@ -191,13 +196,19 @@ function writeReport(ctx: Context, r: DayReport, info: { open: number; scored: n
     ...numbers.map(line),
   ];
   const fmt = (n: number) => n.toLocaleString('en-US');
-  const out: string[] = [
+  const header: string[] = [
     `## Your top ${ctx.config().settings.top_n} — ${shortDate(r.report_date, true)} (scanned ${fmt(info.open)} open jobs from ${info.sites} site${info.sites === 1 ? '' : 's'})`,
     '',
     `_Showing ${fmt(ids.length)} of ${fmt(info.scored)} scored, ${fmt(info.open)} open._`,
     '',
   ];
-  if (r.summary) out.push(`**How your CV reads to this market:** ${r.summary.trim()}`, '');
+  if (r.summary) header.push(`**How your CV reads to this market:** ${r.summary.trim()}`, '');
+  return { header, table };
+}
+
+function writeReport(ctx: Context, r: DayReport, info: { open: number; scored: number; sites: number }) {
+  const { header, table } = reportParts(ctx, r, info);
+  const out: string[] = [...header];
   r.pages.forEach((p, i) => {
     if (i > 0) {
       const lo = Math.min(...p.numbers);
@@ -206,11 +217,24 @@ function writeReport(ctx: Context, r: DayReport, info: { open: number; scored: n
     }
     out.push(...table(p.numbers), '');
   });
-  out.push('Say **"CV for #2"** to get a tailored CV, **"why #5?"** for the full breakdown, or **"more jobs"** for the next 20.', '');
+  out.push(CLOSING_LINE, '');
   fs.mkdirSync(ctx.paths.reportsDir, { recursive: true });
   const file = reportPath(ctx, r.report_date);
   fs.writeFileSync(file, out.join('\n'));
   return file;
+}
+
+/**
+ * One page as it is shown in chat (`top --brief`): the header for page 1, a `## #21–#40` heading for later
+ * pages, the table for exactly these numbers and the closing line. Same lines as the report file.
+ */
+function pageMarkdown(ctx: Context, r: DayReport, info: { open: number; scored: number; sites: number }, numbers: number[], label: string | null): string {
+  if (!numbers.length) return '';
+  const { header, table } = reportParts(ctx, r, info);
+  const lo = Math.min(...numbers);
+  const hi = Math.max(...numbers);
+  const head = lo === 1 ? header : [`## #${lo}–#${hi}${label ? ` (${label})` : ''}`, '', header[2], ''];
+  return [...head, ...table(numbers), '', CLOSING_LINE].join('\n');
 }
 
 function widenedOptions(widened: string[]): PoolOptions {
@@ -241,7 +265,7 @@ export interface NextStep {
 
 function nextStep(ctx: Context, r: DayReport, remainingScored: number, limit: number, nextOffset: number, open: number): NextStep {
   if (remainingScored >= limit) {
-    return { step: 'already_scored', command: `slj top --offset ${nextOffset} --limit ${limit} --json`, message: `${remainingScored} scored jobs are not shown yet; "more jobs" costs no scoring.` };
+    return { step: 'already_scored', command: `slj top --offset ${nextOffset} --limit ${limit} --brief --json`, message: `${remainingScored} scored jobs are not shown yet; "more jobs" costs no scoring.` };
   }
   const pn = ctx.config().settings.prefilter_n;
   const opts = widenedOptions(r.widened);
@@ -394,12 +418,18 @@ export function top(ctx: Context, input: TopInput) {
   );
   const remainingScored = remaining().length;
 
+  const info = { open: open.length, scored: all.length, sites };
+  // Scam-capped rows are always named, so a brief result still tells the agent which numbers to warn about.
+  const scams = rows.filter((r) => r.scam).map((r) => r.n);
   return {
     today: key.today,
     resume_hash: key.resume_hash,
     rubric_version: key.rubric_version,
     variant: variant ? label : null,
-    rows,
+    shown: rows.length,
+    ...(input.brief
+      ? { page_markdown: pageMarkdown(ctx, report, info, rows.map((r) => r.n), label), scam_rows: scams }
+      : { rows }),
     short_by: Math.max(0, input.limit - rows.length),
     dropped,
     pool: { open: open.length, scored: all.length, stale_scores: stale, numbered_today: numbered.length, remaining_scored: remainingScored, sites },

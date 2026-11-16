@@ -337,6 +337,10 @@ export interface PrefilterInput extends PoolOptions {
   limit: number;
   offset: number;
   include_scored?: boolean;
+  /** Return at most this many candidates (the next unscored ones in the window). 0 or undefined = the whole window. */
+  batch?: number;
+  /** Also return rank, district, posted_at, platform and the prefilter sub-scores for each candidate. */
+  explain?: boolean;
   /** Widening the agent did outside slj, recorded for `top`'s next_step (e.g. a slow-source scan). */
   widened?: string[];
 }
@@ -351,7 +355,8 @@ export function prefilter(ctx: Context, input: PrefilterInput) {
   const { ranked } = pool;
   const end = input.offset + input.limit;
   const window = ranked.slice(input.offset, end);
-  const picked = input.include_scored ? window : window.filter((r) => !r.scored);
+  const inWindow = input.include_scored ? window : window.filter((r) => !r.scored);
+  const picked = input.batch ? inWindow.slice(0, input.batch) : inWindow;
   const unscoredIdx = ranked.map((r, i) => (r.scored ? -1 : i)).filter((i) => i >= 0);
   const firstAfter = unscoredIdx.find((i) => i >= end);
   const before = unscoredIdx.filter((i) => i < input.offset).length;
@@ -373,21 +378,22 @@ export function prefilter(ctx: Context, input: PrefilterInput) {
       remaining: ranked.length - alreadyScored,
     },
     window: { offset: input.offset, limit: input.limit, size: window.length },
+    /** Candidates of this window not returned in this call (batch): run the same command again after saving these. */
+    left_in_window: inWindow.length - picked.length,
     /** Unscored jobs ranked above this window (new since the last run): re-run with offset 0 to get them. */
     unscored_before: before,
     /** Offset of the next window that still has unscored jobs, or null. */
     next_offset: firstAfter == null ? null : input.offset + input.limit * Math.floor((firstAfter - input.offset) / input.limit),
     candidates: picked.map((r) => ({
-      rank: ranked.indexOf(r) + 1,
+      // Only what scoring needs by default: every extra field is paid for 60 times a run.
+      ...(input.explain ? { rank: ranked.indexOf(r) + 1 } : {}),
       id: r.job.id,
       title: r.job.title,
       company: r.job.company,
       location: r.job.location,
-      district: r.job.district,
       remote: r.job.remote,
       closing_date: r.job.closing_date,
-      posted_at: r.job.posted_at,
-      platform: r.job.platform,
+      ...(input.explain ? { district: r.job.district, posted_at: r.job.posted_at, platform: r.job.platform } : {}),
       requirements_excerpt: requirementsExcerpt(r.job.ad_text ?? r.job.description, EXCERPT_MAX).slice(0, EXCERPT_MAX),
       is_image_ad: r.job.is_image_ad,
       ...(r.job.is_image_ad
@@ -397,7 +403,7 @@ export function prefilter(ctx: Context, input: PrefilterInput) {
             transcribed: !!r.job.ad_text,
           }
         : {}),
-      prefilter: r.sub,
+      ...(input.explain ? { prefilter: r.sub } : {}),
       ...(r.stale ? { rescore: true } : {}),
       ...(input.include_scored ? { scored: r.scored } : {}),
     })),

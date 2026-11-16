@@ -86,7 +86,7 @@ export interface SaveError {
 }
 
 /** Validates each item on its own; the valid ones are saved (upsert on job, resume, rubric). */
-export function saveScores(ctx: Context, items: unknown[]) {
+export function saveScores(ctx: Context, items: unknown[], batchModel?: string) {
   const key = matchKey(ctx);
   const bands = ctx.config().settings.stars;
   const db = ctx.db();
@@ -133,7 +133,8 @@ export function saveScores(ctx: Context, items: unknown[]) {
         job_hash: job!.job_hash,
         points: d.points,
         stars: d.stars,
-        matched_json: JSON.stringify(item.matched),
+        // `matched` may be left out: it is then the requirements the CV meets, so the agent does not write them twice.
+        matched_json: JSON.stringify(item.matched.length ? item.matched : item.requirements.filter((r) => r.status === 'met').map((r) => r.text)),
         gaps_json: JSON.stringify(item.gaps),
         breakdown_json: JSON.stringify({
           dimensions: item.dimensions,
@@ -144,7 +145,7 @@ export function saveScores(ctx: Context, items: unknown[]) {
         }),
         why: item.why,
         capped_by: d.capped_by,
-        model: item.model ?? null,
+        model: item.model ?? batchModel ?? null,
         at: ctx.now().toISOString(),
       });
       results.push({ job_id: item.job_id, points: d.points, stars: d.stars, capped_by: d.capped_by });

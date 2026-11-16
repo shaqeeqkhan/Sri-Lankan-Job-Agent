@@ -15,7 +15,8 @@ export const matchPrefilter = defineCommand({
   name: 'match.prefilter',
   summary:
     'Rank open jobs for the CV (title, skills, location, recency; no LLM) and return the window offset..offset+limit minus jobs already ' +
-    'scored for this CV, job text and rubric, each with a requirements excerpt to score. Widening options: --titles adjacent|any, ' +
+    'scored for this CV, job text and rubric, each with a requirements excerpt to score. Returns the next score_batch (10) of them per call: ' +
+    'score and save those, then run the same command again until candidates is empty. Widening options: --titles adjacent|any, ' +
     '--since 30d, --district nearby|any. Variants: --district <name>, --remote, --like <job id or #n>.',
   sideEffect: 'Records widening steps in today\'s report',
   input: z.object({
@@ -27,18 +28,22 @@ export const matchPrefilter = defineCommand({
     like: Ref.optional().describe('Rank by likeness to this job: a job id or #n from today\'s report.'),
     since: z.string().trim().min(1).max(20).optional().describe('14d, 30d, 60d, all, or YYYY-MM-DD. Default settings.scan.since_days.'),
     include_scored: z.boolean().default(false).describe('Also return jobs that already have a score.'),
+    batch: z.number().int().min(0).max(500).optional().describe('Candidates per call (default score_batch, 10). 0 = the whole window at once.'),
+    explain: z.boolean().default(false).describe('Add rank, district, posted_at, platform and the prefilter sub-scores to each candidate (debugging the order).'),
     widened: z.array(z.enum(['slow_sources'])).max(5).optional().describe('Record a widening done outside prefilter (after `jobs scan --slow`).'),
   }),
   run(input, ctx) {
-    return prefilter(ctx, { ...input, limit: input.limit ?? ctx.config().settings.prefilter_n });
+    const settings = ctx.config().settings;
+    return prefilter(ctx, { ...input, limit: input.limit ?? settings.prefilter_n, batch: input.batch ?? settings.score_batch });
   },
   format: (d) =>
     [
       `Pool: ${d.pool.open} open, ${d.pool.eligible} eligible, ${d.pool.already_scored} scored, ${d.pool.remaining} to score` +
         ` (titles ${d.applied.titles}, since ${d.applied.since}, district ${d.applied.district_name ?? d.applied.district}${d.applied.remote_only ? ', remote only' : ''})`,
       `${d.candidates.length} candidate(s) to score in ranks ${d.window.offset + 1}–${d.window.offset + d.window.size}` +
+        (d.left_in_window ? `, ${d.left_in_window} more in this window` : '') +
         (d.next_offset != null ? `; next window --offset ${d.next_offset}` : ''),
-      ...d.candidates.map((c: any) => `${String(c.rank).padStart(4)}. ${c.id}  ${c.prefilter.total.toFixed(3)}  ${c.title}${c.company ? ` · ${c.company}` : ''}`),
+      ...d.candidates.map((c: any) => `  ${c.id}  ${c.prefilter ? `${c.prefilter.total.toFixed(3)}  ` : ''}${c.title}${c.company ? ` · ${c.company}` : ''}`),
     ].join('\n'),
 });
 
@@ -49,10 +54,11 @@ export const scoreSave = defineCommand({
     'at most 2 stars; scam → 1 star ⚠️). Bad items are rejected one by one with reasons; the rest are saved.',
   sideEffect: 'Writes scores',
   input: z.object({
-    scores: z.array(z.unknown()).min(1).max(50).describe('Items: { job_id, dimensions, requirements[], matched[], gaps[], why, scam_signals[], missing_mandatory[], model }.'),
+    scores: z.array(z.unknown()).min(1).max(50).describe('Items: { job_id, dimensions, requirements[], gaps[], why } plus, only when not empty, scam_signals[], missing_mandatory[], matched[].'),
+    model: z.string().trim().min(1).max(100).optional().describe('Your model name, once for the whole batch.'),
   }),
   run(input, ctx) {
-    return saveScores(ctx, input.scores);
+    return saveScores(ctx, input.scores, input.model);
   },
   isFailure: (d) => d.failed > 0,
   format: (d) =>
@@ -111,14 +117,15 @@ export const topCmd = defineCommand({
     remote: z.boolean().optional().describe('Variant: only remote jobs.'),
     like: Ref.optional().describe('Variant: jobs like this one (job id or #n).'),
     summary: z.string().trim().max(1500).optional().describe('Your "How your CV reads to this market" paragraph for the report.'),
+    brief: z.boolean().default(false).describe('Leave out rows and return page_markdown instead: this page exactly as it should be shown to the person.'),
   }),
   run(input, ctx) {
     return top(ctx, { ...input, limit: input.limit ?? ctx.config().settings.top_n });
   },
   format: (d) =>
     [
-      `Top for ${d.today}${d.variant ? ` (${d.variant})` : ''}: showing ${d.rows.length}; ${d.pool.numbered_today} numbered of ${d.pool.scored} scored, ${d.pool.open} open.`,
-      ...d.rows.map((r: any) => `#${String(r.n).padEnd(3)} ${r.fit}  ${r.title}${r.company ? ` · ${r.company}` : ''}  — ${r.why ?? ''}`),
+      `Top for ${d.today}${d.variant ? ` (${d.variant})` : ''}: showing ${d.shown}; ${d.pool.numbered_today} numbered of ${d.pool.scored} scored, ${d.pool.open} open.`,
+      ...(d.rows ?? []).map((r: any) => `#${String(r.n).padEnd(3)} ${r.fit}  ${r.title}${r.company ? ` · ${r.company}` : ''}  — ${r.why ?? ''}`),
       d.short_by ? `Short by ${d.short_by}.` : '',
       `Next: ${d.next_step.message}${d.next_step.command ? ` (${d.next_step.command})` : ''}`,
       d.report_file ? `Report: ${d.report_file}` : '',

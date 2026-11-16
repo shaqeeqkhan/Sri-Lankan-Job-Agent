@@ -108,6 +108,28 @@ robots.txt is not consulted, and people complete human checks themselves in a vi
 
 Why: every request comes from the person's own home or mobile connection, often shared through their ISP. Pacing plus a human solving the occasional check looks like someone browsing; evasion tooling does not, and the block lands on everyone sharing that connection. And this is open source under a real name: polite scraping that hands checks to a human is defensible; shipping bypasses for local job boards is not. A site that blocks plain HTTP gets the browser tiers (T2/T3) and, failing that, the person pastes the ad.
 
+## Checking star accuracy (`slj match eval`)
+
+A recruiter labels about 30 scored jobs for one CV. Save the labels as CSV:
+
+```
+# job_id,human_stars[,note]   (header and # comments are optional)
+job_id,human_stars
+jc88428535ae,5
+jc4fac6a0638,3,no SSIS
+```
+
+or as JSON: `[{ "job_id": "jc88428535ae", "human_stars": 5 }]`. Then run `./slj match eval --labels <file> --json`. It reads the saved stars for the current `user/resume.md` (or `--resume-hash`) and rubric, and reports the share within ±1 star, the exact share, the mean difference, unscored ids and every miss. It passes at **85% within ±1 over at least 30 jobs**. Run it again whenever `modes/score.md` changes, and bump `rubric_version` in `config/settings.yml` when the rubric itself does.
+
+## Keeping AI usage low
+
+People run this on small plans and small models, so the instructions and the tool output are budgeted:
+
+- `AGENTS.md` is loaded on every turn of every session. Keep it short; put step detail in the mode file for that step.
+- `--json` output is one line with no indentation, and commands return only what the next step needs (`match prefilter` hands out `score_batch` lean candidates per call; `top --brief` returns the page ready to show). Put debugging detail behind a flag (`--explain`), not in the default result.
+- Do not make an agent write something code can derive (`matched` comes from the requirements marked `met`).
+- Anything vendor-specific that saves usage (the `slj-scorer` worker in `.claude/agents/`) is optional and must give the same result as the plain path.
+
 ## Fixtures and personal data
 
 - Source fixtures: minimal snippets, never whole pages.

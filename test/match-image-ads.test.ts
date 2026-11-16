@@ -23,7 +23,7 @@ function seedMixed(ctx: ReturnType<typeof matchCtx>) {
 test('image ads: prefilter returns is_image_ad and the image URLs, and does not rank them last for lacking text', async () => {
   const ctx = matchCtx();
   seedMixed(ctx);
-  const d = await run(matchPrefilter, {}, ctx);
+  const d = await run(matchPrefilter, { explain: true }, ctx);
   const img = d.candidates.find((c: any) => c.company === 'Image Co');
   assert.equal(img.is_image_ad, true);
   assert.deepEqual(img.image_urls, [IMG]);
@@ -53,7 +53,7 @@ test('image ads: score save refuses an untranscribed image ad; quotes are checke
   assert.equal(notImage.ok, false);
   assert.equal(notImage.error.code, 'INVALID_INPUT');
 
-  const scoredBefore = (await run(matchPrefilter, {}, ctx)).candidates.find((c: any) => c.id === imgId);
+  const scoredBefore = (await run(matchPrefilter, { explain: true }, ctx)).candidates.find((c: any) => c.id === imgId);
   const t = await run(jobsTranscribe, { id: imgId, text: 'DATA ANALYST\nRequirements: 2+ years of SQL. Experience with Power BI dashboards. <b>Apply</b> by 30 Nov.' }, ctx);
   assert.equal(t.replaced, false);
 
@@ -66,7 +66,7 @@ test('image ads: score save refuses an untranscribed image ad; quotes are checke
   assert.equal(ok.saved, 1);
 
   // After transcription the prefilter reads the text: no more imputed skills, excerpt from the transcription, markup stripped.
-  const after = (await run(matchPrefilter, { include_scored: true }, ctx)).candidates.find((c: any) => c.id === imgId);
+  const after = (await run(matchPrefilter, { include_scored: true, explain: true }, ctx)).candidates.find((c: any) => c.id === imgId);
   assert.equal(after.transcribed, true);
   assert.equal(after.prefilter.skills_imputed, undefined);
   assert.match(after.requirements_excerpt, /2\+ years of SQL/);
@@ -75,6 +75,6 @@ test('image ads: score save refuses an untranscribed image ad; quotes are checke
 
   // Re-transcribing changes the job text the score is keyed on: the job is re-queued for scoring.
   await run(jobsTranscribe, { id: imgId, text: 'DATA ANALYST. Requirements: 2+ years of SQL. Experience with Power BI dashboards. Python an advantage.' }, ctx);
-  const requeued = (await run(matchPrefilter, {}, ctx)).candidates.find((c: any) => c.id === imgId);
+  const requeued = (await run(matchPrefilter, { explain: true }, ctx)).candidates.find((c: any) => c.id === imgId);
   assert.equal(requeued?.rescore, true);
 });

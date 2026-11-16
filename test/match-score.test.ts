@@ -71,3 +71,20 @@ test('match eval compares saved stars with human labels (±1) and lists the miss
   fs.writeFileSync(file, 'job_id,human_stars\nx,9\n');
   assert.equal(((await execute(matchEval, { labels: file }, ctx)) as any).error.code, 'INVALID_INPUT');
 });
+
+test('lean items: matched defaults to the met requirements, and model may be given once for the batch', async () => {
+  const ctx = matchCtx();
+  const [a, b] = seedMany(ctx, 2);
+  const lean = (id: string) => {
+    const { matched, model, scam_signals, missing_mandatory, ...rest } = item(id, 80) as any;
+    return rest;
+  };
+  const res = await run(scoreSave, { scores: [lean(a), { ...lean(b), matched: ['Own words'], model: 'item-model' }], model: 'batch-model' }, ctx);
+  assert.equal(res.saved, 2);
+  const sa = await run(scoreGet, { job_id: a }, ctx);
+  assert.deepEqual(sa.matched, ['SQL'], 'the requirement marked met');
+  assert.equal(sa.model, 'batch-model');
+  const sb = await run(scoreGet, { job_id: b }, ctx);
+  assert.deepEqual(sb.matched, ['Own words']);
+  assert.equal(sb.model, 'item-model');
+});

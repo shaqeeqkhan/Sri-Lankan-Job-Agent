@@ -54,6 +54,27 @@ Say "CV for #2" to get a tailored CV, "why #5?" for the full breakdown, or "more
 
 Stars are absolute, not curved. If your CV is a weak match for what is advertised right now, you will see mostly ★★, with the gaps that cost the most named. It never suggests claiming something you have not done.
 
+### Which AI model to use, and what a run costs
+
+It is written to work on mid-size models, so you do not need the largest one your tool offers. In Claude Code, **Sonnet** is the recommended setting (`/model sonnet`); the equivalent tier in other tools (not the smallest "mini" or "flash-lite" model) should do too, though only Claude Code has been tried. Whatever you pick must be able to read images, or the picture-only ads are skipped.
+
+Most of the usage is in rating jobs: your AI tool reads 60 ads against your CV. Roughly, for a first run:
+
+| Step | Share of the usage |
+| --- | --- |
+| Reading your CV and working out what you want | small |
+| Scanning the job sites | almost none (the `slj` tool does it) |
+| Rating 60 jobs | most of it; picture-only ads cost the most, because the tool has to read each picture |
+| Showing the top 20, "more jobs", "why #5?" | small |
+| A tailored CV | medium, per CV |
+
+To spend less:
+
+- Run it again the same day or the next: only new or changed ads are rated, so later runs are much cheaper than the first.
+- Set `prefilter_n: 40` in `config/settings.yml` to rate 40 jobs instead of 60 (about a third less; a good job ranked 41–60 can be missed until you say "more jobs").
+- Start a new chat for each tailored CV instead of continuing a long one.
+- In Claude Code, rating can run in a separate worker (`.claude/agents/slj-scorer.md`, on Sonnet) so the ads stay out of your main chat. This matters most if your main chat uses a larger model. Edit the `model:` line in that file to change it.
+
 ### Running it without a chat window
 
 Claude Code can run the same flow headless, for example:

@@ -20,7 +20,7 @@ Fetch open jobs from the Sri Lankan job sites into the local job list, and handl
 
 The normal sources run all at once (one request at a time per site) and the scan finishes in about 3 minutes and prints progress lines on stderr (`[xpressjobs] 120 listed, 14 new ...`). Let it run; do not kill it for being quiet for a minute.
 
-Read `data` (the `ScanReport`):
+Read `data` (the `ScanReport`). You need `totals`, `open_jobs`, `failed_sources`, `low_sources` and any source whose `status` is not `ok`; skip the rest:
 
 - `sources[]`: one row per source, in precedence order, with `status`, `tier`, `listed`, `found`, `inserted`, `merged`, `deferred`, `held_back`, `dropped`, `truncated` (with `truncated_reason` and `truncated_left`), `low`, `error`.
 - `truncated: true` means the site had more new jobs than one scan fetches (a first scan, or days without one). The rest are fetched on the next scans, newest first. Not a problem to report; say "more jobs from xpress.jobs will come in on the next scan" if the person asks why a site seems thin.
@@ -64,7 +64,7 @@ A browser-tier site may show a "verify you are human" page. slj then opens a vis
   "message": "Complete the human check for www.topjobs.lk in the browser window that just opened." }
 ```
 
-While the scan command is running, read that file every 10–20 seconds (or watch stderr for `ACTION NEEDED`). When `state` is `waiting_for_human`, **tell the person in chat straight away; never wait silently.** Say:
+While the scan command is running, check that file about every 30 seconds with one small command (`cat user/browser-status.json`), or watch stderr for `ACTION NEEDED`. Do nothing else between checks: no other commands, no commentary. When `state` is `waiting_for_human`, **tell the person in chat straight away; never wait silently.** Say:
 
 1. The `message`, in plain words: "A Chrome window has opened for topjobs.lk. Please tick the box or solve the puzzle there. Leave the window open; the scan carries on by itself."
 2. The cons of carrying on, every time a check appears:
@@ -94,8 +94,7 @@ When neither slj nor your tools can load the page, or the site is `no_automated_
 
 ## 6. After the scan
 
-- Before showing a top-20 report, run `./slj jobs recheck --top --json`. It drops only jobs that are clearly closed (closing date passed, or the site's own "closed" signal). Anything unclear stays: ambiguous means alive.
-- Then continue with `modes/score.md` and `modes/report.md`.
+- Continue with `modes/score.md`, then `modes/report.md` (which re-checks the jobs it shows).
 - Summarise the scan for the person in one or two lines: how many open jobs, how many new, and any site that was missed, stale or low. No tables of sources unless they ask.
 
 ## Never

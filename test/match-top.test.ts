@@ -155,3 +155,27 @@ test('scam and mandatory caps show in the report', async () => {
   const why = await run(topWhyCmd, { n: 2 }, ctx);
   assert.match(topWhyCmd.format!(why), /Capped at 1 star: scam signal \(registration fee\) \(points alone give 5 stars\)/);
 });
+
+test('top --brief returns the page as Markdown instead of rows; later pages get their own heading; scam rows are named', async () => {
+  const small = await scored(20);
+  await run(scoreSave, { scores: [item(small.ids[0], 95, { scam_signals: ['asks for a registration fee'] })] }, small.ctx);
+  const full = await run(topCmd, {}, small.ctx);
+  const flagged = await run(topCmd, { brief: true }, small.ctx);
+  assert.deepEqual(flagged.scam_rows, full.rows.filter((r: any) => r.scam).map((r: any) => r.n));
+  assert.equal(flagged.scam_rows.length, 1);
+
+  const { ctx } = await scored(45);
+  const brief = await run(topCmd, { brief: true, summary: 'Strong on SQL.' }, ctx);
+  assert.equal(brief.rows, undefined);
+  assert.equal(brief.shown, 20);
+  assert.deepEqual(brief.scam_rows, []);
+  assert.match(brief.next_step.command, /top --offset 20 .*--brief/, 'the follow-up stays lean');
+  // Page 1 is the report file, line for line.
+  assert.equal(brief.page_markdown.trim(), fs.readFileSync(brief.report_file, 'utf8').trim());
+  assert.match(brief.page_markdown, /How your CV reads to this market:\*\* Strong on SQL\./);
+
+  const p2 = await run(topCmd, { offset: 20, brief: true }, ctx);
+  assert.match(p2.page_markdown, /^## #21–#40\n/);
+  assert.equal(p2.page_markdown.split('\n').filter((l: string) => /^\| \d+ \|/.test(l)).length, 20);
+  assert.doesNotMatch(p2.page_markdown, /^\| 1 \|/m);
+});

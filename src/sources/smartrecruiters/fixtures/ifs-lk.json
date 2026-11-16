@@ -1,0 +1,103 @@
+{
+ "offset": 0,
+ "limit": 100,
+ "totalFound": 38,
+ "content": [
+  {
+   "id": "744000161224229",
+   "name": "Senior Security Engineer / Lead Security Engineer ",
+   "uuid": "23a0a6ef-aa46-4e74-b9da-8e66e102f05f",
+   "jobAdId": "d8abf5b9-08f8-4a9e-91f6-db93d4eaa56f",
+   "defaultJobAd": true,
+   "refNumber": "REF10576S",
+   "company": {
+    "identifier": "IFS1",
+    "name": "IFS"
+   },
+   "releasedDate": "2026-11-12T06:27:30.208Z",
+   "location": {
+    "city": "Colombo",
+    "region": "Western Province",
+    "country": "lk",
+    "remote": false,
+    "hybrid": false,
+    "fullLocation": "Colombo, Western Province, Sri Lanka"
+   },
+   "industry": {
+    "id": "it_and_services",
+    "label": "Information Technology And Services"
+   },
+   "department": {
+    "id": "1535260",
+    "label": "Research and Development"
+   },
+   "function": {
+    "id": "engineering",
+    "label": "Engineering"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/IFS1/postings/744000161224229",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000161213329",
+   "name": "AI Architect",
+   "uuid": "5f226c3c-3443-4f78-bede-c1ffbc91bdc8",
+   "jobAdId": "0aa51a61-149e-44c6-bc3f-e9318b946e6c",
+   "defaultJobAd": true,
+   "refNumber": "REF10506S",
+   "company": {
+    "identifier": "IFS1",
+    "name": "IFS"
+   },
+   "releasedDate": "2026-11-12T03:20:30.325Z",
+   "location": {
+    "city": "Colombo",
+    "region": "WESTERN PROVINCE",
+    "country": "lk",
+    "remote": false,
+    "hybrid": false,
+    "fullLocation": "Colombo, WESTERN PROVINCE, Sri Lanka"
+   },
+   "industry": {
+    "id": "it_and_services",
+    "label": "Information Technology And Services"
+   },
+   "department": {
+    "id": "1535192",
+    "label": "Consulting"
+   },
+   "function": {
+    "id": "quality_assurance",
+    "label": "Quality Assurance"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/IFS1/postings/744000161213329",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}

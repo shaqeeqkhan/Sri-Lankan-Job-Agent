@@ -1,0 +1,72 @@
+{
+ "id": "744000161224229",
+ "name": "Senior Security Engineer / Lead Security Engineer ",
+ "uuid": "23a0a6ef-aa46-4e74-b9da-8e66e102f05f",
+ "jobId": "85578436-54f4-4931-8fce-d15709ef3316",
+ "jobAdId": "d8abf5b9-08f8-4a9e-91f6-db93d4eaa56f",
+ "defaultJobAd": true,
+ "refNumber": "REF10576S",
+ "company": {
+  "name": "IFS",
+  "identifier": "IFS1"
+ },
+ "location": {
+  "city": "Colombo",
+  "region": "Western Province",
+  "country": "lk",
+  "remote": false,
+  "hybrid": false,
+  "fullLocation": "Colombo, Western Province, Sri Lanka"
+ },
+ "releasedDate": "2026-11-12T06:27:30.208Z",
+ "postingUrl": "https://jobs.smartrecruiters.com/IFS1/744000161224229-senior-security-engineer-lead-security-engineer-",
+ "applyUrl": "https://jobs.smartrecruiters.com/IFS1/744000161224229-senior-security-engineer-lead-security-engineer-?oga=true",
+ "referralUrl": "https://jobs.smartrecruiters.com/external-referrals/company/IFS1/publication/23a0a6ef-aa46-4e74-b9da-8e66e102f05f?dcr_ci=IFS1",
+ "jobAd": {
+  "sections": {
+   "companyDescription": {
+    "title": "Company Description",
+    "text": "<p>IFS is a billion-dollar revenue company with 7000+ employees on all continents. Our leading AI technology is the backbone of our award-winning enterprise software solutions, enabling our customers to be their best when it really matters–at the Moment of Service™. Our commitment to internal AI ado"
+   },
+   "jobDescription": {
+    "title": "Job Description",
+    "text": "<p>As&#xa0;a Senior / Lead Security Engineer, you will provide technical leadership for security engineering across the organization. You will set technical direction, own critical security capabilities, drive cross-team security initiatives, and mentor engineers at all levels. You are accountable f"
+   },
+   "qualifications": {
+    "title": "Qualifications",
+    "text": "<p>• Typically 4+ years in security engineering, software engineering, or platform engineering.&#xa0;</p><p>• Proven&#xa0;track record&#xa0;owning security capabilities or programs at scale.&#xa0;</p><p>• Deep&#xa0;expertise&#xa0;across multiple domains (AppSec,&#xa0;CloudSec, CI/CD security, archit"
+   },
+   "additionalInformation": {
+    "title": "Additional Information",
+    "text": "<p><em>We embrace flexibility and hybrid work opportunities to support diverse needs and lifestyles, while also valuing inclusive workplace experiences. By fostering a sense of community, we drive innovation, strengthen connections, and nurture belonging. Our commitment ensures you can work in a way"
+   }
+  }
+ },
+ "active": true,
+ "visibility": "PUBLIC",
+ "industry": {
+  "id": "it_and_services",
+  "label": "Information Technology And Services"
+ },
+ "function": {
+  "id": "engineering",
+  "label": "Engineering"
+ },
+ "department": {
+  "id": 1535260,
+  "label": "Research and Development"
+ },
+ "experienceLevel": {
+  "id": "mid_senior_level",
+  "label": "Mid-Senior Level"
+ },
+ "typeOfEmployment": {
+  "id": "permanent",
+  "label": "Full-time"
+ },
+ "language": {
+  "code": "en",
+  "label": "English",
+  "labelNative": "English (US)"
+ }
+}

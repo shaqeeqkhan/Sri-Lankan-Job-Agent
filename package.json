@@ -1,0 +1,40 @@
+{
+  "name": "srilankanjobs-agent",
+  "version": "0.1.0",
+  "description": "Local, agent-agnostic job-search agent for Sri Lankan job seekers. Brains in markdown, hands in the slj CLI + MCP server.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "bin": {
+    "slj": "bin/slj.mjs"
+  },
+  "scripts": {
+    "slj": "node bin/slj.mjs",
+    "mcp": "node bin/slj.mjs mcp",
+    "test": "node --test --test-concurrency=1 \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "better-sqlite3": "^13.0.3",
+    "cheerio": "^1.2.0",
+    "mammoth": "^1.13.0",
+    "marked": "^18.2.0",
+    "minisearch": "^7.2.0",
+    "playwright": "^1.65.1",
+    "turndown": "^7.2.5",
+    "undici": "^8.12.4",
+    "unpdf": "^2.2.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.5",
+    "@types/turndown": "^5.0.6",
+    "typescript": "^7.0.2"
+  }
+}

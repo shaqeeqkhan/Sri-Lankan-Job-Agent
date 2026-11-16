@@ -1,0 +1,38 @@
+# SriLankanJobs Agent settings (v2). Every value is checked when slj starts:
+# a value outside its allowed range makes the command fail with CONFIG_INVALID
+# (and `slj doctor` say which line), instead of being silently replaced.
+
+language: en              # en | si | ta: agent replies. CVs stay in English unless an ad asks otherwise
+
+# Stars come from rubric points (0-100) on an absolute scale (PRD §5.3).
+# 85+ = 5 stars, 70-84 = 4, 55-69 = 3, 40-54 = 2, under 40 = 1.
+stars:
+  five: 85
+  four: 70
+  three: 55
+  two: 40
+
+top_n: 20                 # rows in every top report page; always 20 when the pool allows
+prefilter_n: 60           # candidates the code prefilter hands to LLM scoring per page
+score_batch: 10           # jobs per scoring batch
+rubric_version: v1        # bump when modes/score.md changes; cached scores are keyed by it
+
+scan:
+  since_days: 14          # skip jobs posted before this window when the site gives a date
+  source_workers: 6       # sources scanned at once: all six normal sources (env SLJ_SOURCE_WORKERS overrides); one host is never parallel
+  listing_cache_hours: 6
+  detail_cache_hours: 24
+  html_delay_ms: 1500     # minimum gap between requests to one HTML job site; at least 1000
+  api_delay_ms: 500       # minimum gap between requests to one ATS API
+  source_budget_s: 165    # per source (all normal sources run at once, so this bounds the scan: ~3 min): no new detail page is started after this many seconds (0 = no limit).
+                          # What was fetched is kept; the rest are not marked seen and wait for the next scan.
+
+cv:
+  page_size: A4           # A4 | Letter
+  style: auto             # auto | modern | traditional
+  modern_max_pages: 2     # traditional Sri Lankan CVs have no page limit
+  watermark:
+    enabled: true         # the code is open source; switching this off is allowed and documented
+    size_pt: 6            # 4-6. Below 6 pt, some printers and PDF text parsers drop it
+    text: "Resume designed by srilankanjobs.lk"
+    color: "#9aa0a6"

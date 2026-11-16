@@ -1,0 +1,123 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/infuse/jobs/4740223005",
+   "internal_job_id": 4213691005,
+   "location": {
+    "name": "Sri Lanka"
+   },
+   "metadata": [
+    {
+     "id": 4002916005,
+     "name": "Type of contract",
+     "value": "Non-US Contractor",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4684953005,
+     "name": "Business Entity",
+     "value": "INFUSE",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 4740223005,
+   "updated_at": "2026-10-02T18:23:29-04:00",
+   "requisition_id": "200",
+   "title": "Client Success Representative (Remote within APAC region, Contract)",
+   "company_name": "INFUSE",
+   "first_published": "2026-10-02T18:23:29-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/infuse/jobs/4740212005",
+   "internal_job_id": 4161859005,
+   "location": {
+    "name": "Sri Lanka"
+   },
+   "metadata": [
+    {
+     "id": 4002916005,
+     "name": "Type of contract",
+     "value": "Non-US Contractor",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4684953005,
+     "name": "Business Entity",
+     "value": "INFUSE",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 4740212005,
+   "updated_at": "2026-10-02T17:58:51-04:00",
+   "requisition_id": "182",
+   "title": "Customer Service Expert (Remote within APAC region, Contract)",
+   "company_name": "INFUSE",
+   "first_published": "2026-10-02T17:58:51-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/infuse/jobs/4734143005",
+   "internal_job_id": 4338829005,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4002916005,
+     "name": "Type of contract",
+     "value": "INTL Employee",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4684953005,
+     "name": "Business Entity",
+     "value": "INFUSE",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 4734143005,
+   "updated_at": "2026-09-23T12:03:42-04:00",
+   "requisition_id": "358",
+   "title": "Account Director - New Business & Enterprise Growth (Remote)",
+   "company_name": "INFUSE",
+   "first_published": "2026-09-15T16:05:40-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/infuse/jobs/4734141005",
+   "internal_job_id": 4386475005,
+   "location": {
+    "name": "Singapore"
+   },
+   "metadata": [
+    {
+     "id": 4002916005,
+     "name": "Type of contract",
+     "value": "APAC Employee",
+     "value_type": "single_select"
+    },
+    {
+     "id": 4684953005,
+     "name": "Business Entity",
+     "value": "INFUSE",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 4734141005,
+   "updated_at": "2026-09-23T12:04:37-04:00",
+   "requisition_id": "419",
+   "title": "Account Manager - New Business & Growth (Remote)",
+   "company_name": "INFUSE",
+   "first_published": "2026-09-15T16:02:30-04:00",
+   "language": "en",
+   "application_deadline": null
+  }
+ ],
+ "meta": {
+  "total": 4
+ }
+}

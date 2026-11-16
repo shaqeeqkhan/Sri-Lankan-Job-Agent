@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "slj": {
+      "command": "node",
+      "args": ["bin/slj.mjs", "mcp"],
+      "cwd": "."
+    }
+  }
+}

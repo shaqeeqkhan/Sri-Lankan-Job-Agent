@@ -1,0 +1,84 @@
+{
+ "total": 664,
+ "jobPostings": [
+  {
+   "title": "Senior Attestations and Client Audit Manager (D&A DORA)",
+   "externalPath": "/job/London-United-Kingdom/Senior-Attestations-and-Client-Audit-Manager--D-A-DORA-_R0121916",
+   "locationsText": "2 Locations",
+   "postedOn": "Posted 2 Days Ago",
+   "bulletFields": [
+    "R0121916",
+    "Division: Engineering"
+   ]
+  },
+  {
+   "title": "FX Operations Support – APAC Region (Japanese Speaker)",
+   "externalPath": "/job/SGP-Singapore-1-Raffles-Quay/FX-Operations-Support---APAC-Region_R0124646-1",
+   "locationsText": "SGP-Singapore-1 Raffles Quay",
+   "postedOn": "Posted 9 Days Ago",
+   "bulletFields": [
+    "R0124646",
+    "Division: Markets"
+   ]
+  }
+ ],
+ "facets": [
+  {
+   "facetParameter": "locationMainGroup",
+   "values": [
+    {
+     "facetParameter": "locationCountry",
+     "descriptor": "Country/Territory",
+     "values": [
+      {
+       "descriptor": "Sri Lanka",
+       "id": "db69e062446c11de98360015c5e6daf6",
+       "count": 31
+      },
+      {
+       "descriptor": "Australia",
+       "id": "d903bb3fedad45039383f6de334ad4db",
+       "count": 5
+      },
+      {
+       "descriptor": "Canada",
+       "id": "a30a87ed25634629aa6c3958aa2b91ea",
+       "count": 3
+      }
+     ]
+    },
+    {
+     "facetParameter": "primaryLocation",
+     "descriptor": "Office Location/City",
+     "values": [
+      {
+       "descriptor": "Colombo, Sri Lanka",
+       "id": "51df219f279a018651969fff11000502",
+       "count": 17
+      },
+      {
+       "descriptor": "Colombo, Sri Lanka",
+       "id": "51df219f279a01211cc5181a12003202",
+       "count": 7
+      },
+      {
+       "descriptor": "Colombo, Sri Lanka",
+       "id": "bfb8731495b201b0532dc91d12004102",
+       "count": 4
+      },
+      {
+       "descriptor": "Allen, Texas",
+       "id": "dccba1761967100102b41a5194e10000",
+       "count": 2
+      },
+      {
+       "descriptor": "AUS-Sydney-60 Margaret St",
+       "id": "584b9a0ae27c42a49cf82e61193ac7c3",
+       "count": 4
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

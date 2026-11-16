@@ -1,0 +1,12 @@
+- id: metric-ctr
+  text: The Ruhuna Foods Avurudu campaign in April 2024 reached a 2.1% click-through rate on Meta Ads.
+  kind: metric
+  source: interview
+  confirmed: true
+  added_at: "2026-11-13T09:00:00.000Z"
+- id: tool-google-ads
+  text: I ran small Google Ads search campaigns for two Brightline Media clients.
+  kind: tool
+  source: interview
+  confirmed: true
+  added_at: "2026-11-13T09:03:00.000Z"

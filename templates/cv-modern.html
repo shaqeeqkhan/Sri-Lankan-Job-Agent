@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Modern ATS CV (PRD §5.5, §8). Rendered by `slj cv render --style modern`; do not fill by hand.
+     Placeholders: {{title}} {{page_size}} {{margins}} {{vars}} {{name}} {{contact}} {{content}} {{mark}} {{body_class}}.
+     ATS rules: one column, real text, standard fonts, no tables, no images, no icons. Only h3 entry lines use flex,
+     and the text still reads left to right in the PDF text layer. Layout ideas (single column, entry lines, keep entries
+     whole) follow KivancSerefoglu/resume-optimizer's resume-template.html, MIT, (c) 2026 Kivanc Serefoglu; licence text in
+     .agents/skills/resume-tailor/NOTICE. Changed: A4, sans-serif, two-page limit, density variables, watermark. -->
+<title>{{title}}</title>
+<style>
+  /* The bottom margin is deeper than the others: the srilankanjobs.lk footer is printed inside it,
+     so it can never push content onto another page. `slj cv render` passes the same margins to Chrome. */
+  @page { size: {{page_size}}; margin: {{margins}}; }
+  :root { {{vars}} }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: var(--fs, 10.5pt);
+    line-height: var(--lh, 1.32);
+    color: #1a1a1a;
+    background: #fff;
+  }
+  main { display: block; }
+  header.cv-head { text-align: center; margin-bottom: var(--gap, 8pt); }
+  .name { font-size: calc(var(--fs, 10.5pt) * 1.9); font-weight: bold; letter-spacing: 0.01em; }
+  .contact { font-size: calc(var(--fs, 10.5pt) * 0.92); margin-top: 2pt; }
+  .contact a { color: inherit; text-decoration: none; }
+  h2 {
+    font-size: calc(var(--fs, 10.5pt) * 1.08);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 1pt;
+    margin: var(--gap, 8pt) 0 calc(var(--gap, 8pt) * 0.45);
+    break-after: avoid;
+  }
+  h3 {
+    font-size: var(--fs, 10.5pt);
+    font-weight: bold;
+    margin-top: calc(var(--gap, 8pt) * 0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+    break-after: avoid;
+  }
+  h3 .when { font-weight: normal; white-space: nowrap; font-size: calc(var(--fs, 10.5pt) * 0.95); }
+  h4 { font-size: var(--fs, 10.5pt); font-style: italic; font-weight: normal; }
+  p { margin: 1pt 0; }
+  ul { padding-left: 13pt; margin: 1pt 0 0; }
+  li { margin-bottom: 1.5pt; }
+  li, p { orphans: 2; widows: 2; }
+  strong { font-weight: bold; }
+  a { color: inherit; }
+  /* Fallback watermark for a PDF printed by hand from this HTML (no Chrome found). Same size as the footer. */
+  .slj-mark { margin-top: 10pt; text-align: center; font-size: {{mark_size}}; color: {{mark_color}}; }
+</style>
+</head>
+<body class="{{body_class}}">
+<main>
+<header class="cv-head">
+  <h1 class="name">{{name}}</h1>
+  <p class="contact">{{contact}}</p>
+</header>
+{{content}}
+{{mark}}
+</main>
+</body>
+</html>

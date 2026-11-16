@@ -1,0 +1,157 @@
+{
+ "offset": 0,
+ "limit": 100,
+ "totalFound": 7,
+ "content": [
+  {
+   "id": "6000000001569070",
+   "name": "Laboratory Co-ordinator - Engineering ",
+   "uuid": "f2c9be33-698c-4380-a72a-e851f90563f7",
+   "jobAdId": "7ac774dc-2b6c-4da2-b387-a8ba0edac663",
+   "defaultJobAd": true,
+   "refNumber": "REF1049O",
+   "company": {
+    "identifier": "Navitas",
+    "name": "Navitas"
+   },
+   "releasedDate": "2026-11-11T05:53:51.150Z",
+   "location": {
+    "city": "Sri Jayawardenepura Kotte",
+    "region": "WP",
+    "country": "lk",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "6.8838832",
+    "longitude": "79.9019163",
+    "fullLocation": "Sri Jayawardenepura Kotte, WP, Sri Lanka"
+   },
+   "industry": {
+    "id": "higher_education",
+    "label": "Higher Education"
+   },
+   "department": {
+    "id": "6000000000043010",
+    "label": "Education - Administration"
+   },
+   "function": {
+    "id": "education",
+    "label": "Education"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Navitas/postings/6000000001569070",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "6000000001568730",
+   "name": "Head of Computing and Security (Kandy Branch)",
+   "uuid": "c580cb53-14b8-4b56-8f82-2bec81f6e6bd",
+   "jobAdId": "c823fc01-f061-4631-9c04-6c37ef95f973",
+   "defaultJobAd": true,
+   "refNumber": "REF1080P",
+   "company": {
+    "identifier": "Navitas",
+    "name": "Navitas"
+   },
+   "releasedDate": "2026-11-11T05:33:22.760Z",
+   "location": {
+    "city": "Kandy",
+    "region": "CP",
+    "country": "lk",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "7.2905715",
+    "longitude": "80.6337262",
+    "fullLocation": "Kandy, CP, Sri Lanka"
+   },
+   "industry": {
+    "id": "education_management",
+    "label": "Education Management"
+   },
+   "department": {
+    "id": "6000000000042942",
+    "label": "Education - Teaching"
+   },
+   "function": {
+    "id": "education",
+    "label": "Education"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Navitas/postings/6000000001568730",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "6000000001538166",
+   "name": "Visiting Lecturer - Computer Science ",
+   "uuid": "deeb10fe-9bdf-4dc9-b427-69559152b2b6",
+   "jobAdId": "5e4cc511-50e2-4beb-b191-7603c6355f65",
+   "defaultJobAd": true,
+   "refNumber": "REF1103E",
+   "company": {
+    "identifier": "Navitas",
+    "name": "Navitas"
+   },
+   "releasedDate": "2026-10-30T08:36:40.642Z",
+   "location": {
+    "city": "Kandy",
+    "region": "CP",
+    "country": "lk",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "7.2905715",
+    "longitude": "80.6337262",
+    "fullLocation": "Kandy, CP, Sri Lanka"
+   },
+   "industry": {
+    "id": "education_management",
+    "label": "Education Management"
+   },
+   "department": {
+    "id": "6000000000042942",
+    "label": "Education - Teaching"
+   },
+   "function": {
+    "id": "education",
+    "label": "Education"
+   },
+   "typeOfEmployment": {
+    "id": "part-time",
+    "label": "Part-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Navitas/postings/6000000001538166",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}

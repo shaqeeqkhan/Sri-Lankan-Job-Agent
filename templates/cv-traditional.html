@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Traditional Sri Lankan CV (PRD §5.5, §8.3; modes/_shared.md). Rendered by `slj cv render --style traditional`.
+     Sections the agent writes in cv.md, in this order: Personal Details (Label: value lines; NIC only when the ad
+     requires it), Career Objective (optional), Educational Qualifications with G.C.E. O/L and A/L result tables,
+     Professional Qualifications, Work Experience, Skills, Extra-curricular Activities, Referees (two non-related),
+     Declaration (optional). No page limit. Tables are allowed here: they hold results, not layout.
+     Placeholders: {{title}} {{page_size}} {{margins}} {{vars}} {{name}} {{contact}} {{content}} {{mark}} {{body_class}}. -->
+<title>{{title}}</title>
+<style>
+  /* Deeper bottom margin: the srilankanjobs.lk footer sits inside it and never moves content. */
+  @page { size: {{page_size}}; margin: {{margins}}; }
+  :root { {{vars}} }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Times New Roman", Times, "Liberation Serif", serif;
+    font-size: var(--fs, 11pt);
+    line-height: var(--lh, 1.35);
+    color: #111;
+    background: #fff;
+  }
+  main { display: block; }
+  header.cv-head { text-align: center; margin-bottom: var(--gap, 9pt); }
+  .doc-label { font-size: calc(var(--fs, 11pt) * 0.95); letter-spacing: 0.04em; text-transform: uppercase; }
+  .name { font-size: calc(var(--fs, 11pt) * 1.7); font-weight: bold; text-transform: uppercase; margin-top: 2pt; }
+  .contact { font-size: calc(var(--fs, 11pt) * 0.95); margin-top: 2pt; }
+  .contact a { color: inherit; text-decoration: none; }
+  h2 {
+    font-size: calc(var(--fs, 11pt) * 1.05);
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1.5px solid #111;
+    margin: var(--gap, 9pt) 0 calc(var(--gap, 9pt) * 0.5);
+    padding-bottom: 1pt;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: var(--fs, 11pt);
+    margin-top: calc(var(--gap, 9pt) * 0.6);
+    display: flex;
+    justify-content: space-between;
+    gap: 8pt;
+    break-after: avoid;
+  }
+  h3 .when { font-weight: normal; white-space: nowrap; }
+  h4 { font-size: var(--fs, 11pt); font-style: italic; font-weight: normal; }
+  p { margin: 1.5pt 0; }
+  ul { padding-left: 15pt; margin: 1pt 0 0; }
+  li { margin-bottom: 1.5pt; }
+  table { border-collapse: collapse; margin: 3pt 0 5pt; min-width: 55%; break-inside: avoid; }
+  th, td { border: 1px solid #555; padding: 1.5pt 7pt; text-align: left; vertical-align: top; }
+  th { background: #eee; font-weight: bold; }
+  a { color: inherit; }
+  .slj-mark { margin-top: 12pt; text-align: center; font-size: {{mark_size}}; color: {{mark_color}}; font-family: Arial, Helvetica, sans-serif; }
+</style>
+</head>
+<body class="{{body_class}}">
+<main>
+<header class="cv-head">
+  <div class="doc-label">Curriculum Vitae</div>
+  <h1 class="name">{{name}}</h1>
+  <p class="contact">{{contact}}</p>
+</header>
+{{content}}
+{{mark}}
+</main>
+</body>
+</html>

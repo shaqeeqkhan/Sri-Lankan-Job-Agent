@@ -1,0 +1,80 @@
+[
+ {
+  "additional": "<div><span style=\"font-size: 16px\">We thank all applicants for their interest; however, only those selected for an interview will be contacted.</span></div><div><span style=\"font-size: 16px\">FreeBalance is an inclusive employer dedicated to building a diverse workforce to increase the representation of the designated groups based on each country’s legislation. We encourage applications from all qualified candidates and will accommodate applicants’ needs under the respective labour law throughout all stages of the recruitment process.</span></div>",
+  "categories": {
+   "commitment": "Full-time",
+   "department": "Research & Development",
+   "location": "Colombo, Western Province, Sri Lanka",
+   "team": "APAC",
+   "allLocations": [
+    "Colombo, Western Province, Sri Lanka"
+   ]
+  },
+  "createdAt": 1769756678809,
+  "description": "<div>About FreeBalance FreeBalance is a purpose-led global technology company empowering governments to achieve transparent, accountable, and effective public financial management through its proprietary FreeBalance Accountability Suite™, a comprehensive Government Resource Planning (GRP) solution d",
+  "id": "0ae65c99-3b4c-4db2-aba2-2096d7472d33",
+  "lists": [
+   {
+    "text": "Key Responsibilities",
+    "content": "<li><b>Functional Design &amp; Specification</b></li><li>Translate business requirements and storyboards into clear, structured functional</li><li>specifications and process models for developers and "
+   }
+  ],
+  "text": "Senior Functional Analyst",
+  "country": "LK",
+  "workplaceType": "onsite",
+  "hostedUrl": "https://jobs.lever.co/freebalance.com/0ae65c99-3b4c-4db2-aba2-2096d7472d33",
+  "applyUrl": "https://jobs.lever.co/freebalance.com/0ae65c99-3b4c-4db2-aba2-2096d7472d33/apply"
+ },
+ {
+  "additional": "<div>We thank all applicants for their interest; however, only those selected for an interview will be contacted. FreeBalance is an inclusive employer dedicated to building a diverse workforce to increase the representation of the designated groups based on each country’s legislation. We encourage applications from all qualified candidates and will accommodate applicants’ needs under the respective labour law throughout all stages of the recruitment process.</div>",
+  "categories": {
+   "commitment": "Full-time",
+   "department": "Research & Development",
+   "location": "Krakow, Poland",
+   "team": "EMEA",
+   "allLocations": [
+    "Krakow, Poland"
+   ]
+  },
+  "createdAt": 1784117316076,
+  "description": "<div><strong>About FreeBalance</strong><br>FreeBalance is a purpose-led global technology company empowering governments to achieve transparent, accountable, and effective public financial management through its proprietary FreeBalance Accountability Suite™, a comprehensive Government Resource Plann",
+  "id": "effd356a-ba05-4949-99cd-1178df88fd23",
+  "lists": [
+   {
+    "text": "Key Responsibilities",
+    "content": "<div><strong>Infrastructure &amp; CI/CD Management</strong><br>● Design, develop, and maintain modern, scalable, and secure cloud infrastructure using contemporary DevOps technologies.<br>● Build, mai"
+   }
+  ],
+  "text": "DevOps Engineer",
+  "country": "PL",
+  "workplaceType": "hybrid",
+  "hostedUrl": "https://jobs.lever.co/freebalance.com/effd356a-ba05-4949-99cd-1178df88fd23",
+  "applyUrl": "https://jobs.lever.co/freebalance.com/effd356a-ba05-4949-99cd-1178df88fd23/apply"
+ },
+ {
+  "additional": "<div><span style=\"font-size: 10.5pt;\">We thank all applicants for their interest; however, only those selected for an interview will be contacted. FreeBalance is an inclusive employer dedicated to building a diverse workforce to increase the representation of the designated groups based on each country’s legislation. We encourage applications from all qualified candidates and will accommodate applicants’ needs under the respective labour law throughout all stages of the recruitment process.</span></div>",
+  "categories": {
+   "commitment": "Full-time",
+   "department": "Professional Services & Support",
+   "location": "City of Johannesburg, Gauteng, South Africa",
+   "team": "EMEA",
+   "allLocations": [
+    "City of Johannesburg, Gauteng, South Africa"
+   ]
+  },
+  "createdAt": 1688088037917,
+  "description": "<div><span style=\"font-size: 11pt;\">As the Director of Technical Services, you will be responsible for the strategy and execution of technical services by employees of the Services Department in various FreeBalance Customer locations throughout Europe, the Middle East, and Africa. Key to this positi",
+  "id": "b805f404-ecaf-484d-90c3-b18b2e2947dd",
+  "lists": [
+   {
+    "text": "Main Responsibilities:",
+    "content": "\n<li>Preparation of strategies and design for data migration that can be implemented by the FreeBalance Technical Consultants at a client location.</li>\n<li>Build tools and models for the Installation"
+   }
+  ],
+  "text": "Director, Technical Services EMEA",
+  "country": "ZA",
+  "workplaceType": "remote",
+  "hostedUrl": "https://jobs.lever.co/freebalance.com/b805f404-ecaf-484d-90c3-b18b2e2947dd",
+  "applyUrl": "https://jobs.lever.co/freebalance.com/b805f404-ecaf-484d-90c3-b18b2e2947dd/apply"
+ }
+]

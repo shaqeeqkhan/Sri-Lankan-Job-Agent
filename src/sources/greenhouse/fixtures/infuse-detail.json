@@ -1,0 +1,47 @@
+{
+ "absolute_url": "https://job-boards.greenhouse.io/infuse/jobs/4740223005",
+ "internal_job_id": 4213691005,
+ "location": {
+  "name": "Sri Lanka"
+ },
+ "metadata": [
+  {
+   "id": 4002916005,
+   "name": "Type of contract",
+   "value": "Non-US Contractor",
+   "value_type": "single_select"
+  },
+  {
+   "id": 4684953005,
+   "name": "Business Entity",
+   "value": "INFUSE",
+   "value_type": "single_select"
+  }
+ ],
+ "id": 4740223005,
+ "updated_at": "2026-10-02T18:23:29-04:00",
+ "requisition_id": "200",
+ "title": "Client Success Representative (Remote within APAC region, Contract)",
+ "company_name": "INFUSE",
+ "first_published": "2026-10-02T18:23:29-04:00",
+ "language": "en",
+ "application_deadline": null,
+ "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;&lt;strong&gt;OUR HIRING PROCESS:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;We will review your application against our job requirements. We do not employ machine learning technologies during this phase as we believe every human deserves attention from another human. We do not think machines can evaluate your application quite like our seasoned recruiting professionals—every person is unique. We promise to give your candidacy a fair and detailed assessment.&lt;/li&gt;\n&lt;li&gt;We may then invite you to submit a video interview for the re",
+ "departments": [
+  {
+   "id": 4008787005,
+   "name": "Client Success",
+   "child_ids": [],
+   "parent_id": null
+  }
+ ],
+ "offices": [
+  {
+   "id": 4000625005,
+   "name": "US",
+   "location": "Boca Raton, Florida, United States",
+   "child_ids": [],
+   "parent_id": null
+  }
+ ]
+}

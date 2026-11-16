@@ -1,0 +1,20 @@
+[
+  { "name": "invented employer", "person": "nimal", "job": "data", "find": "- Coached 4 junior staff on Excel pivot tables", "replace": "- Coached 4 junior staff at Dialog Axiata PLC on Excel pivot tables", "kind": "employer", "claim": "Dialog Axiata PLC" },
+  { "name": "inflated title", "person": "nimal", "job": "data", "find": "### Data Analyst, Ceylon Analytics", "replace": "### Senior Data Analyst, Ceylon Analytics", "kind": "title", "claim": "Senior Data Analyst" },
+  { "name": "changed number", "person": "nimal", "job": "data", "find": "for 12 branch managers", "replace": "for 20 branch managers", "kind": "number", "claim": "20" },
+  { "name": "inflated percentage", "person": "nimal", "job": "data", "find": "by 30%", "replace": "by 45%", "kind": "percentage", "claim": "45%" },
+  { "name": "tool copied from the ad", "person": "nimal", "job": "data", "find": "Git, Google Sheets", "replace": "Git, Google Sheets, Tableau", "kind": "tool", "claim": "Tableau" },
+  { "name": "lower-case tool copied from the ad", "person": "kasun", "job": "data", "find": "- Load hotel rate sheets", "replace": "- Built pipelines in snowflake and load hotel rate sheets", "kind": "tool", "claim": "snowflake" },
+  { "name": "invented qualification", "person": "nimal", "job": "data", "find": "Second Class (Upper Division)", "replace": "Second Class (Upper Division). CIMA Certificate in Business Accounting", "kind": "qualification", "claim": "CIMA" },
+  { "name": "dates moved to another entry", "person": "nimal", "job": "marketing", "find": "### Junior Analyst, Lanka Retail Holdings PLC, Colombo | Jun 2019 – Dec 2021", "replace": "### Junior Analyst, Lanka Retail Holdings PLC, Colombo | 2019 – 2022", "kind": "date_range" },
+  { "name": "invented month", "person": "kasun", "job": "data", "find": "| Jan 2020 – Jul 2021", "replace": "| Jan 2020 – Nov 2021", "kind": "month_year", "claim": "2021-11" },
+  { "name": "raised grade", "person": "fathima", "job": "accounts", "find": "| Economics | B |", "replace": "| Economics | A |", "kind": "grade", "claim": "Economics: A" },
+  { "name": "accounting tool copied from the ad", "person": "fathima", "job": "accounts", "find": "MS Excel, MS Word, QuickBooks, Sage 50", "replace": "MS Excel, MS Word, QuickBooks, Sage 50, SAP", "kind": "tool", "claim": "SAP" },
+  { "name": "invented institution", "person": "kasun", "job": "marketing", "find": "University of Moratuwa | 2016 – 2020", "replace": "University of Peradeniya | 2016 – 2020", "kind": "institution", "claim": "University of Peradeniya" },
+  { "name": "invented amount", "person": "arjun", "job": "marketing", "find": "Rs. 400,000", "replace": "Rs. 1.5 million", "kind": "amount", "claim": "1500000" },
+  { "name": "marketing tool copied from the ad", "person": "arjun", "job": "marketing", "find": "WordPress, Mailchimp, copywriting", "replace": "WordPress, Mailchimp, HubSpot, copywriting", "kind": "tool", "claim": "HubSpot" },
+  { "name": "wrong phone", "person": "tharushi", "job": "accounts", "find": "phone: 070 246 8135", "replace": "phone: 070 246 8139", "kind": "phone" },
+  { "name": "invented referee", "person": "tharushi", "job": "accounts", "find": "2. Mr. R. Senanayake, Branch Manager", "replace": "2. Mr. R. Fernando, Branch Manager", "kind": "entity" },
+  { "name": "invented language", "person": "fathima", "job": "data", "find": "English, Sinhala and Tamil", "replace": "English, Sinhala, Tamil and Hindi", "kind": "entity", "claim": "Hindi" },
+  { "name": "derived years of experience", "person": "arjun", "job": "data", "find": "Marketer who reports", "replace": "Marketer with 5 years of experience who reports", "kind": "number", "claim": "5" }
+]

@@ -1,0 +1,4 @@
+# Project-scoped Codex config (used when this folder is trusted).
+[mcp_servers.slj]
+command = "node"
+args = ["bin/slj.mjs", "mcp"]

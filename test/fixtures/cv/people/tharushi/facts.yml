@@ -1,0 +1,6 @@
+- id: metric-cash-report
+  text: At the rural bank I checked the monthly branch cash report against 4 cashier sheets before it went to the manager.
+  kind: scope
+  source: interview
+  confirmed: true
+  added_at: "2026-11-12T11:00:00.000Z"

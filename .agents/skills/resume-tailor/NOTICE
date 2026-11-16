@@ -1,0 +1,97 @@
+Third-party notices for .agents/skills/resume-tailor/
+=====================================================
+
+This folder contains material adapted from two MIT-licensed projects. Their licence texts and
+copyright lines are reproduced below, unchanged. Everything else in this repository is under the
+repository's own licence.
+
+1. KivancSerefoglu/resume-optimizer
+   https://github.com/KivancSerefoglu/resume-optimizer
+   Vendored from commit 688a7d69d9f156d9c8b28f33729701a63af8fb0b (2026-10-19).
+   Files taken and adapted:
+     plugins/resume-optimizer/skills/resume-optimizer/SKILL.md          -> SKILL.md
+     plugins/resume-optimizer/shared/evidence-rules.md                  -> references/evidence-rules.md
+     plugins/resume-optimizer/skills/resume-optimizer/references/non-fabrication.md -> references/non-fabrication.md
+     plugins/resume-optimizer/skills/resume-optimizer/references/tailoring.md       -> references/tailoring.md
+     plugins/resume-optimizer/skills/resume-optimizer/references/critical-review.md -> references/critical-review.md
+     plugins/resume-optimizer/skills/resume-optimizer/references/writing-guide.md   -> references/writing-guide.md
+     plugins/resume-optimizer/shared/reviewer-brief.md + agents/application-reviewer.md -> references/reviewer-brief.md
+     plugins/resume-optimizer/skills/resume-optimizer/assets/resume-template.html  -> layout ideas in templates/cv-modern.html
+     plugins/resume-optimizer/shared/render.py, ats-check.py                       -> behaviour ported to TypeScript in
+                                                                                       src/cv/render.ts, src/cv/pdf.ts, src/cv/ats-check.ts
+
+2. varunr89/resume-tailoring-skill
+   https://github.com/varunr89/resume-tailoring-skill
+   Vendored from commit 9a4a0f20f5983d1b533627b8c5191acd1ca0cd89 (2026-02-28).
+   Files taken and adapted:
+     branching-questions.md -> references/branching-questions.md
+
+What was changed (PRD v2 §8)
+----------------------------
+- A4 by default; modern CV limit 2 pages instead of 1; a traditional Sri Lankan style (personal details,
+  O/L and A/L result tables, two non-related referees, NIC only when the ad requires it) with no page limit.
+- File name Firstname_Lastname_Role.pdf instead of firstname-lastname-resume.pdf.
+- The "background dossier" became user/resume.md + user/facts.yml; facts are written only with
+  `slj facts add --confirmed` after the person confirms the wording.
+- The fact gate is the deterministic `slj factcheck` (src/cv/factcheck.ts), which also rejects tools and
+  qualifications copied from the job ad, and blocks `slj cv render` until it passes.
+- resume-optimizer's match-analysis scoring was removed; the gap analysis reuses the project's star rubric
+  (modes/score.md) so the top-20 stars and the CV flow agree.
+- Nothing Claude-only on the required path: the reviewer subagent is optional; the in-context review is
+  a first-class path. No plugin agent definition is shipped.
+- All Python script calls (render.py, ats-check.py, html-to-md.py) were replaced by `slj` commands.
+  Rendering uses Playwright with an empty header template and a srilankanjobs.lk footer watermark; the
+  "derive the Markdown from the HTML" rule is replaced by one-way generation cv.md -> HTML -> PDF.
+- Removed: portfolio-link harvesting, company research, cover-letter skill, US conventions (work
+  authorisation, Letter paper, US section names), the multi-job leverage section of branching-questions.md.
+- Added Sri Lankan question types and the one-question-at-a-time / stop-at-about-8 rule.
+
+------------------------------------------------------------------------------
+resume-optimizer licence
+------------------------------------------------------------------------------
+MIT License
+
+Copyright (c) 2026 Kivanc Serefoglu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------------------------------------------------------------------------------
+resume-tailoring-skill licence
+------------------------------------------------------------------------------
+MIT License
+
+Copyright (c) 2025 Varun Ramesh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

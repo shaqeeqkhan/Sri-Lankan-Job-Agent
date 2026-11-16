@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html><head><title>VACVIEW</title></head><body>
+<div id="job-adview">
+<div class="ad-header">
+	                    			<div class="row">
+			                        <input type="hidden" id="vacancyIndex" />
+			                        <div class="top-bar col-md-12 col-sm-12 col-md-12 col-lg-7">
+			                        		<a href="../index.jsp" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+			                            <div class="ad-company-logo">
+			                                <div class="logo-holder">
+			                                    <img id="logo" alt="" src="/logo/0000000505_small.png">
+			                                </div>
+			                            </div>
+			                            <div class="ad-company-info">
+			                                <div class="info-box">
+			                                    <input type="hidden" id="currentIndex" value=""></input> 
+			                                    <h5 id="employer" title="Konnect Net Pvt Ltd" class="ad-company-name">Konnect Net Pvt Ltd</h5>
+			                                    <a id="url" class="ad-company-web-link" href="http://www.konnecting.lk" title="http://www.konnecting.lk" target="_blank">http://www.konnecting.lk</a>
+			                                    <label id="adview-job-location" class="adview-job-location">
+					                                                    Colombo 3, Sri Lanka
+					                                                        <div style="display: inline;" id="localFlag"><img src="../images/local.jpg" title="Sri Lankan" id="localFlagImg"></div>
+			                                    </label>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <input type="hidden" value="0001571430" name="JobSpecCode" id="jsCode" readonly="readonly">
+			                        <div class="action-btn-panel col-xs-12 col-sm-12 col-md-12 col-lg-5">
+			                            <div class="top-panel">
+			                                <div class="action-btns col-xs-12">
+			                                		<div class="row">
+                                                        <div class="ad-jb-detail">
+                                                            <label class="lbl-closing-date"><i class="fa fa-calendar" aria-hidden="true"></i> Closing Date: <span id="endDate">29/11/2026</span></label>
+                                                            <label class="lbl-job-ref"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Job Ref No: <span id="jobRefNum">1571430</span></label>
+                                                        </div>
+					                                </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                      </div>
+		                      </div>
+		                      <div class="row">
+		                        	<div class="col-xs-2 col-md-12">
+		                        		<div class="ad-button-block">
+		                        			<div class="ad-status">
+		                        				<label class="lbl_fulltime">Full Time</label>
+		                        					<label class="lbl_fulltime">Permanent</label>
+		                        					<label class="lbl_fulltime">Onsite</label>
+		                        			</div>
+		                        			<div class="btn-area">
+		                                          <a href="AgentServlet?jc=0001571430" class="commn-action apply btn btn-success apply-now action-btn-color" data-target=""><i class="fa fa-share" aria-hidden="true"></i> <span>Apply by online CV</span></a>
+		                                <button type="button" class="commn-action print btn btn-success" onclick="printAd()">
+	                                      <i class="fa fa-print" aria-hidden="true"></i> <span>Print</span>
+	                                  </button>
+	                              		<a onclick="closeWindow()" class="commn-action btn flg flag-btn 
+	                                      disabled
+	                                      " href="../applicant/ApplicantWorkSpaceServlet?js=0001571430&appun=null&fg=y&ac=0000000385&ec=0000000505">
+	                                      <i class="fa fa-flag" aria-hidden="true"> </i>
+	                                  </a>
+                                  </div>
+	                              </div>
+		                        	</div>
+		                        </div>
+	                        <div class="job-title-header col-xs-12 col-sm-12 col-md-12 col-lg-12 clearfix">
+	                                    <h3 id="position" class="col-xs-12 job-title title-full-width">Executive Secretary / Executive PA-Colombo3</h3>
+	                        </div>
+	                        <div id="remark" class="job-holder col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	                            <p><img alt="" src="/logo/0000000385/1159cExecutive Secretary  Executive PAo1.jpg" style="height:990px; width:700px" /></p>
+	                        </div>
+	                        <div class="print-date col-xs-12 col-sm-12 col-md-12 col-lg-12 center-block" style="display: none;"></div>
+	                        
+<div id="ave-form-panel"><fieldset><legend>Apply by email </legend>
+<div class="row-fluid">
+		                                            <label class="lbl-catg">Company Email: <span></span></label>
+		                                            <input type="text" class="txt-catg bg-iceBlue" value="" name="txtCompanyEmail" id="txtAVECompanyEmail" readonly="readonly" data-toggle="tooltip" data-placement="top">
+		                                        </div>
+</fieldset></div>
+</div></body></html>

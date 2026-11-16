@@ -1,0 +1,13 @@
+# Confirmed interview facts (invented person).
+- id: metric-dashboard-users
+  text: The Power BI sales dashboard is opened about 300 times a month across the branches.
+  kind: metric
+  source: interview
+  confirmed: true
+  added_at: "2026-11-10T09:00:00.000Z"
+- id: tool-google-sheets
+  text: I also used Google Sheets at Lanka Retail Holdings PLC to share outlet checklists.
+  kind: tool
+  source: interview
+  confirmed: true
+  added_at: "2026-11-10T09:05:00.000Z"

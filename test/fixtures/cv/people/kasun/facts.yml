@@ -1,0 +1,12 @@
+- id: scope-booking-volume
+  text: The booking platform handles about 15,000 bookings a month.
+  kind: metric
+  source: interview
+  confirmed: true
+  added_at: "2026-11-12T10:00:00.000Z"
+- id: tool-python-scripts
+  text: I write small Python scripts at Pearl Bay to load hotel rate sheets from Excel into PostgreSQL.
+  kind: tool
+  source: interview
+  confirmed: true
+  added_at: "2026-11-12T10:04:00.000Z"

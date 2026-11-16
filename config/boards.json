@@ -1,0 +1,67 @@
+{
+  "workday": [
+    {
+      "name": "lseg|wd3|Careers",
+      "company": "LSEG"
+    },
+    {
+      "name": "sysco|wd5|syscocareers",
+      "company": "Sysco LABS"
+    },
+    {
+      "name": "jll|wd1|jllcareers",
+      "company": "JLL"
+    },
+    {
+      "name": "pwc|wd3|Global_Experienced_Careers",
+      "company": "PwC"
+    },
+    {
+      "name": "unilever|wd3|Unilever_Experienced_Professionals",
+      "company": "Unilever"
+    }
+  ],
+  "greenhouse": [
+    {
+      "name": "infuse",
+      "company": "INFUSE"
+    }
+  ],
+  "lever": [
+    {
+      "name": "freebalance.com",
+      "company": "FreeBalance"
+    },
+    {
+      "name": "rws",
+      "company": "RWS TrainAI"
+    },
+    {
+      "name": "weloglobal",
+      "company": "Welo Global"
+    },
+    {
+      "name": "dijital-team-pty-ltd",
+      "company": "Dijital Team"
+    }
+  ],
+  "ashby": [],
+  "smartrecruiters": [
+    {
+      "name": "Q4US",
+      "company": "Q4"
+    },
+    {
+      "name": "IFS1",
+      "company": "IFS"
+    },
+    {
+      "name": "Navitas",
+      "company": "Navitas"
+    },
+    {
+      "name": "BoschGroup",
+      "company": "Bosch"
+    }
+  ]
+}

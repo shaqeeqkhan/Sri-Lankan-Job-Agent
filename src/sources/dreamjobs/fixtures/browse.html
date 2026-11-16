@@ -1,0 +1,90 @@
+<!doctype html><html><head><title>Browse Jobs</title></head><body><div id="master-content"><div id="categories-page" class="list-page">
+		<div class="container">
+			<div class="page-contents">
+			<h1>Browse Jobs</h1>
+				<style>
+					.col .category-heading {
+						position: relative;
+					}
+					.col .category-heading .label-info {
+						position: absolute;
+						bottom: 15px;
+						right: 15px;
+					}
+					/* http://stackoverflow.com/questions/7785374/how-to-prevent-column-break-within-an-element */
+					@media (min-width: 990px) {
+						.page-contents .row {
+							/*-moz-column-width: 560px;*/
+							/*-webkit-column-width: 560px;*/
+							-moz-column-gap: 0px;
+							-webkit-column-gap: 0px;
+							-webkit-column-count: 2;
+							-moz-column-count: 2;
+							column-count: 2;
+						}
+						.page-contents .row > .col-md-6 {
+							float: none;
+							width: 100%;
+							-webkit-column-break-inside: avoid; /* Chrome, Safari */
+							page-break-inside: avoid; /* Theoretically FF 20+ */
+							break-inside: avoid-column; /* IE 11 */
+							display: table; /* Actually FF 20+ */
+						}
+					}
+					@media (max-width: 990px) {
+						#categories-page .category .job-title {
+							width: 70%;
+						}
+					}
+				</style>
+				<div class="row">
+											<div class="col col-md-6">
+							<div class="category list-item">
+																	<div class="category-heading">
+										<div class="category-name title">
+											<a href="/industry/it-software-engineers-web">IT Software, Engineers &amp; Web</a>
+										</div>
+										<span class="label label-info job-count">3 Jobs</span>
+									</div>
+									<ul class="sub-items">
+																					<li>
+												<a href="/jobs/internship-flutter-developers-onsite-2">
+													<span class="job-title">Internship- Flutter Developers (Onsite)</span>
+													<span class="time-posted">2 weeks ago</span></a>
+											</li>
+																																<li>
+												<a href="/jobs/senior-software-engineer-software-engineer-php-onsite-8">
+													<span class="job-title">Senior Software Engineer/ Software Engineer- PHP (Onsite)</span>
+													<span class="time-posted">3 weeks ago</span></a>
+											</li>
+																																<li>
+												<a href="/jobs/software-engineer-senior-software-engineer-flutter-onsite-8">
+													<span class="job-title">Software Engineer/ Senior Software Engineer- Flutter (Onsite) </span>
+													<span class="time-posted">3 weeks ago</span></a>
+											</li>
+																														</ul>
+							</div>
+						</div>
+											<div class="col col-md-6">
+							<div class="category list-item">
+																	<div class="category-heading">
+										<div class="category-name title">
+											<a href="/industry/sales-marketing-merchandising">Sales, Marketing &amp; Merchandising</a>
+										</div>
+										<span class="label label-info job-count">1 Job</span>
+									</div>
+									<ul class="sub-items">
+																					<li>
+												<a href="/jobs/sales-officers-freshers">
+													<span class="job-title">Sales Officers Freshers</span>
+													<span class="time-posted">2 weeks ago</span></a>
+											</li>
+																														</ul>
+							</div>
+						</div>
+									</div>
+			</div>
+		</div>
+	</div>
+                    </div>
+                    </body></html>

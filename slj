@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run slj from the project folder without installing it: ./slj jobs list
+exec node "$(dirname "$0")/bin/slj.mjs" "$@"

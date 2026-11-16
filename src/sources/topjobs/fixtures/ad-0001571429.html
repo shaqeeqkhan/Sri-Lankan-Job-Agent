@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><title>VACVIEW</title></head><body>
+<div id="job-adview" class="" tabindex="-1" role="dialog">
+<div class="ad-header">
+	                    			<div class="row">
+			                        <input type="hidden" id="vacancyIndex" />
+			                        <div class="top-bar col-md-12 col-sm-12 col-md-12 col-lg-7">
+			                        		<a href="../index.jsp" class="home"><i class="fa fa-home" aria-hidden="true"></i></a>
+			                            <div class="ad-company-logo">
+			                                <div class="logo-holder">
+			                                    <img id="logo" alt="" src="/logo/defzzz_small.gif">
+			                                </div>
+			                            </div>
+			                            <div class="ad-company-info">
+			                                <div class="info-box">
+			                                    <input type="hidden" id="currentIndex" value=""></input> 
+			                                    <h5 id="employer" title="Colombo Academy of Hospitality Management (Pvt) Ltd" class="ad-company-name">Colombo Academy of Hospitality Management (Pvt) Ltd</h5>
+			                                    <a id="url" class="ad-company-web-link" href="" title="" target="_blank"></a>
+			                                    <label id="adview-job-location" class="adview-job-location">
+					                                                    Malabe, Sri Lanka
+					                                                        <div style="display: inline;" id="localFlag"><img src="../images/local.jpg" title="Sri Lankan" id="localFlagImg"></div>
+			                                    </label>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <input type="hidden" value="0001571429" name="JobSpecCode" id="jsCode" readonly="readonly">
+			                        <div class="action-btn-panel col-xs-12 col-sm-12 col-md-12 col-lg-5">
+			                            <div class="top-panel">
+			                                <div class="action-btns col-xs-12">
+			                                		<div class="row">
+                                                        <div class="ad-jb-detail">
+                                                            <label class="lbl-closing-date"><i class="fa fa-calendar" aria-hidden="true"></i> Closing Date: <span id="endDate">22/11/2026</span></label>
+                                                            <label class="lbl-job-ref"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Job Ref No: <span id="jobRefNum">1571429</span></label>
+                                                        </div>
+					                                </div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                      </div>
+		                      </div>
+		                      <div class="row">
+		                        	<div class="col-xs-2 col-md-12">
+		                        		<div class="ad-button-block">
+		                        			<div class="ad-status">
+		                        				<label class="lbl_fulltime">Full Time</label>
+		                        					<label class="lbl_fulltime">Permanent</label>
+		                        					<label class="lbl_fulltime">Onsite</label>
+		                        			</div>
+		                        			<div class="btn-area">
+		                                    	<a href="#ave-form-panel">
+			                                        <button type="button" class="commn-action apply btn btn-success action-btn-color" data-toggle="collapse" data-target="#ave-form-panel" onclick="handleOpeningClosingOfForms()"><i class="fa fa-share" aria-hidden="true"></i> <span>Apply by email</span></button>
+			                                    </a>
+		                                <button type="button" class="commn-action print btn btn-success" onclick="printAd()">
+	                                      <i class="fa fa-print" aria-hidden="true"></i> <span>Print</span>
+	                                  </button>
+	                              		<a onclick="closeWindow()" class="commn-action btn flg flag-btn 
+	                                      disabled
+	                                      " href="../applicant/ApplicantWorkSpaceServlet?js=0001571429&appun=null&fg=y&ac=DEFZZZ&ec=DEFZZZ">
+	                                      <i class="fa fa-flag" aria-hidden="true"> </i>
+	                                  </a>
+                                  </div>
+	                              </div>
+		                        	</div>
+		                        </div>
+	                        <div class="job-title-header col-xs-12 col-sm-12 col-md-12 col-lg-12 clearfix">
+	                                    <h3 id="position" class="col-xs-12 job-title title-full-width">Deputy Center Director - Academic Affairs </h3>
+	                        </div>
+	                        <div id="remark" class="job-holder col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	                            <p style="text-align:center"><img alt="" src="/logo/DEFZZZ/4578cLANKAA.png" style="border-style:solid; border-width:3px; height:1414px; width:1000px" /></p>
+	                        </div>
+	                        <div class="print-date col-xs-12 col-sm-12 col-md-12 col-lg-12 center-block" style="display: none;"></div>
+	                        
+<div id="ave-form-panel" class="form-panel collapse"><fieldset class="clearfix"><legend>Apply by email </legend>
+<div class="row-fluid">
+		                                            <label class="lbl-catg">Company Email: <span></span></label>
+		                                            <input type="text" class="txt-catg bg-iceBlue" value="jobs4@example.lk" name="txtCompanyEmail" id="txtAVECompanyEmail" readonly="readonly" data-toggle="tooltip" data-placement="top">
+		                                        </div>
+</fieldset></div>
+</div></body></html>

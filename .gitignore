@@ -1,0 +1,8 @@
+node_modules/
+# Everything personal lives in user/. Never commit it.
+/user/
+.DS_Store
+*.log
+.env
+.env.*
+*.pem

@@ -1,0 +1,6 @@
+---
+description: SriLankanJobs Agent - CV in, top 20 Sri Lankan jobs with stars, tailored CV out
+alwaysApply: true
+---
+
+Read and follow `AGENTS.md` in the project root (and `modes/_shared.md` before any mode). It holds the whole flow, every `slj` command and the hard rules. Run `./slj <noun> <verb> --json` in the terminal (Windows: `slj.cmd`) for every side effect.

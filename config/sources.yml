@@ -1,0 +1,385 @@
+# Where jobs come from (v2: local scrapers on this machine, no backend).
+#
+# `sources` is scanned by `slj jobs scan`. ORDER IS DEDUP PRECEDENCE: when two sources
+# carry the same job, the first one in this list wins (its salary, closing date, etc.).
+# Richest data first: ATS APIs, then XpressJobs, then the rest. Reordering changes stored
+# values, so it is tested.
+#
+# Each entry matches SourceConfig in src/sources/types.ts, plus priority and notes:
+#   tiers        fallback ladder, tried in order (PRD §7.3): T0 structured, T1 HTTP,
+#                T2 headless Chrome, T3 visible Chrome + human check, T5 last good cache.
+#                (T4 and T6 are the agent's own steps and are never listed here.)
+#   slow         runs only on request ("more jobs" widening, or --slow / --sources)
+#   max_details  detail pages fetched per scan, newest first; seen jobs are skipped. Jobs not
+#                fetched are not marked seen, so the next scan picks them up (newest first again).
+#   delay_ms     minimum gap between requests to one host
+#   options      adapter-specific settings
+#
+# Stream owners edit only their own entry. Tiers below are the ones each adapter stream verified
+# live on 15 Nov 2026 and integration (I1) re-checked.
+#
+# Scan time (PRD §6/§7.3: a normal scan finishes in under 3 minutes). Each host gets one request at a
+# time, paced at delay_ms between request starts (PRD §7.2: 1.5 s for HTML pages, 0.5 s for JSON APIs),
+# so a source costs about max_details x delay_ms plus its listing. All six normal sources run at once
+# (settings.scan.source_workers: 6; they are six different hosts, so nothing is parallel on one host),
+# and each one is sized to finish inside settings.scan.source_budget_s (165 s). Rates measured on a cold
+# live scan on 15 Nov 2026 (I2):
+#   xpressjobs  JSON API, 0.5 s:  sitemap (~3 s) + 225 x ~0.7 s (the API answers in ~0.5 s) ~ 160 s
+#   ikman       HTML, 1.5 s:      ~5 listing pages + 95 x ~1.6 s ~ 160 s
+#   topjobs     HTML, 1.5 s:      1-2 listing pages (2 MB each) + 95 x 1.5 s ~ 145 s
+#   hotjobs     HTML, 1.5 s:      sitemap + 100 x 1.55 s ~ 156 s
+#   jobeka      HTML, 1.5 s:      ~5 listing pages + ~25 open jobs ~ 45 s
+#   rooster     JSON search API:  ~22 pages x 1.5 s ~ 35 s (whole postings; max_details only bounds rows)
+# Later scans only fetch what is new. source_budget_s is the safety net when a site answers slowly: no
+# new detail page starts after it, and the source reports truncated with how many were left. A backlog
+# bigger than max_details (a first scan, or a few days without scanning) is worked through over the next
+# scans, newest first.
+
+sources:
+  # ---- ATS employer boards (P2): config/boards.json lists the boards
+  - id: workday
+    name: Workday career sites
+    kind: ats
+    priority: P2
+    hosts: ["*.myworkdayjobs.com", "*.myworkdaysite.com"]
+    enabled: true
+    slow: true
+    tiers: [T0]
+    max_details: 300
+    delay_ms: 500
+    options: { max_pages: 25 }
+    notes: >-
+      Verified 15 Nov 2026: CxS POST search with the board's own Sri Lanka location facet
+      (locationCountry, else Sri Lankan city values), paged 20 at a time, then one CxS detail GET
+      per new posting. 5 boards in boards.json (LSEG, Sysco LABS, JLL, PwC, Unilever), 88 Sri Lanka
+      postings live. T0 only: JSON API over ctx.http, no HTML ladder. Recheck: 404 or 403/S22 = closed.
+  - id: greenhouse
+    name: Greenhouse job boards
+    kind: ats
+    priority: P2
+    hosts: [boards.greenhouse.io, job-boards.greenhouse.io, job-boards.eu.greenhouse.io, boards-api.greenhouse.io]
+    enabled: true
+    slow: true
+    tiers: [T0]
+    max_details: 300
+    delay_ms: 500
+    options: {}
+    notes: >-
+      Verified 15 Nov 2026: boards-api list (no descriptions), Sri Lanka by location name or a
+      Location/Country custom field, then one detail GET per new posting. 1 board (INFUSE), 4 Sri
+      Lanka postings live. Recheck by board membership.
+  - id: lever
+    name: Lever job boards
+    kind: ats
+    priority: P2
+    hosts: [jobs.lever.co, api.lever.co]
+    enabled: true
+    slow: true
+    tiers: [T0]
+    max_details: 300
+    delay_ms: 500
+    options: {}
+    notes: >-
+      Verified 15 Nov 2026: api.lever.co/v0/postings?mode=json paged by skip/limit 100, Sri Lanka by
+      Lever's ISO `country` then location text. 4 boards (Dijital Team, FreeBalance, RWS TrainAI,
+      Welo Global), 30 Sri Lanka postings live. EU-region boards (api.eu.lever.co) not supported.
+      Recheck by board membership.
+  - id: ashby
+    name: Ashby job boards
+    kind: ats
+    priority: P2
+    hosts: [jobs.ashbyhq.com, api.ashbyhq.com]
+    enabled: false
+    slow: true
+    tiers: [T0]
+    max_details: 300
+    delay_ms: 500
+    options: {}
+    notes: >-
+      API checked 15 Nov 2026 (posting-api job-board, one call per board). Disabled: no Ashby board
+      advertising Sri Lanka roles was found (8 orgs tried). Enable once `slj boards check --add`
+      admits one.
+  - id: smartrecruiters
+    name: SmartRecruiters career sites
+    kind: ats
+    priority: P2
+    hosts: [jobs.smartrecruiters.com, careers.smartrecruiters.com, api.smartrecruiters.com]
+    enabled: true
+    slow: true
+    tiers: [T0]
+    max_details: 300
+    delay_ms: 500
+    options: {}
+    notes: >-
+      Verified 15 Nov 2026: postings API with the API's own country=lk filter, paged 100 at a time,
+      then one detail GET per new posting. 4 boards (IFS, Navitas, Q4, Bosch), 48 Sri Lanka postings
+      live. Recheck: the posting's `active` flag; 404 = closed.
+
+  # ---- P1 boards
+  - id: xpressjobs
+    name: XpressJobs
+    kind: board
+    priority: P1
+    hosts: [xpress.jobs, xpressjobs.lk]
+    enabled: true
+    slow: false
+    tiers: [T0]
+    max_details: 225
+    delay_ms: 500          # JSON API (PRD §7.2: 0.5 s); its HTML pages are never fetched
+    options:
+      sitemap_url: https://xpress.jobs/sitemap.xml
+      api_base: https://xpress.jobs/api/
+      fallback_pages: 5      # searchJobs pages read only when the sitemap fails
+      page_size: 100
+    notes: >-
+      Verified 2026-11-15. Job pages are a React SPA shell with no JSON-LD in the served HTML,
+      so pages are never fetched. Listing: sitemap.xml (3 MB, one request, ~4,200 /jobs/view/<id>/<slug>
+      URLs with lastmod), newest id first; fallback the site's own api/jobs/searchJobs JSON.
+      Detail: api/jobs/publishedJob?jobId=<id> JSON (title, organization, locations, expiry,
+      jobType, min/max salary, jobInfo HTML, banner image, redirect apply link). A missing id
+      answers 204; an expired one has jobItem.archived=true. All over ctx.http (T0); the default
+      slj User-Agent was accepted.
+  - id: ikman
+    name: ikmanJOBS
+    kind: board
+    priority: P1
+    hosts: [ikman.lk]
+    enabled: true
+    slow: false
+    tiers: [T0, T1, T5]
+    max_details: 95
+    delay_ms: 1500
+    options:
+      listing_url: https://ikman.lk/en/ads/sri-lanka/jobs
+      max_pages: 8           # 25 ads + featured/top ads a page; paging stops early once caught up
+    notes: >-
+      Verified 2026-11-15. Plain HTTP works. The sitemaps are raw .xml.gz (application/gzip),
+      unreadable through the text HttpClient, so the listing pages are the index: each embeds
+      window.initialData (serp.ads.data, newest first, ~10,300 job ads). Ad pages
+      /en/ad/<slug> embed initialData.adDetail (employer, salary, deadline, job type, apply_via
+      phone/apply-on-ikman) and a JobPosting JSON-LD block. A removed ad answers HTTP 410.
+      external_id is the ad slug.
+  - id: topjobs
+    name: topjobs.lk
+    kind: board
+    priority: P1
+    hosts: [topjobs.lk, www.topjobs.lk]
+    enabled: true
+    slow: false
+    tiers: [T1, T2, T3, T5]
+    max_details: 95
+    delay_ms: 1500
+    options:
+      listing_url: https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=AV
+      max_pages: 2           # ~1,000 rows a page (2.2 MB), newest job code first
+    notes: >-
+      Verified 2026-11-15: plain HTTP works (no human check, no block, default slj User-Agent
+      accepted), so T1 comes first and the browser tiers are fallbacks only (not run against this
+      site). Listing: the "All Vacancies" table (title, employer, opening/closing date, town, job
+      code; ~4,900 open jobs in 5 pages). Detail: JobAdvertismentServlet?ac&jc&ec (advert,
+      Full Time/Permanent/Onsite labels, apply-by-email address, Foreign flag). Nearly every advert
+      is a single image: stored with is_image_ad=true and the image URL in the description.
+      A bad or old link is a 200 error page (errCode=601), never a 404. external_id is the jc code.
+  - id: hotjobs
+    name: HotJobs.lk
+    kind: board
+    priority: P1
+    hosts: [hotjobs.lk]
+    enabled: true
+    slow: false
+    tiers: [T0, T1, T5]
+    max_details: 100
+    delay_ms: 1500
+    options:
+      sitemap_url: https://hotjobs.lk/sitemap/jobs.xml
+    notes: >-
+      Verified 2026-11-15 (S4): /sitemap/jobs.xml lists every open posting (~496) as
+      /jobs/<slug>/<id>; the numeric id is the posting id. Job pages carry JobPosting JSON-LD plus
+      the full job record in the Next.js flight payload (status, expireDate, HTML description,
+      salary, location/country, receiveApplications portal|external). Plain HTTP works, no human
+      check seen. A gone posting answers a real 404. Many postings are foreign (Oman, UAE, Saudi):
+      the adapter keeps their country_code and `jobs scan` drops them (PRD §4: no overseas jobs). Salary is mostly "Negotiable"; no image-only ads seen.
+      The country is only on the job page: the sitemap slug is the title, and /jobs (12 cards a page,
+      the ?isForeignJob=true filter is applied in the browser, not by the server) would cost ~42 pages to
+      list. So an overseas post costs one detail fetch on the first scan only: `jobs scan` marks it seen.
+      Checked 2026-11-15 (I2).
+  - id: jobeka
+    name: JobEka.lk
+    kind: board
+    priority: P1
+    hosts: [jobeka.lk]
+    enabled: true
+    slow: false
+    tiers: [T0, T1, T5]
+    max_details: 100
+    delay_ms: 1500
+    options:
+      max_pages: 5
+    notes: >-
+      Verified 2026-11-15 (S4): the sitemaps are unusable (jobs1-sitemap.xml HTTP 500,
+      jobs2-sitemap.xml empty, district sitemaps mostly 2023-2025). /jobs?page=N lists 10 postings
+      per page, newest first, expired ones included (~1,000 pages): the adapter reads pages until
+      one has no open card (max_pages). ~23 open postings that day. Job pages have JobPosting
+      JSON-LD, a Job overview box (deadline, contact number, Salary(LKR) field), an apply-now link,
+      and "This job is expired" on closed ones; unknown ids redirect to /browse (soft 404).
+      Plain HTTP works, no human check seen.
+  - id: rooster
+    name: Rooster
+    kind: board
+    priority: P1
+    hosts: [rooster.jobs, api.rooster.jobs, rooster.org]
+    enabled: true
+    slow: false
+    tiers: [T0, T1, T5]
+    max_details: 1500
+    delay_ms: 1500
+    options:
+      api_url: https://api.rooster.jobs/jobSearch/jobs/search
+      page_size: 50
+      max_pages: 30
+    notes: >-
+      Verified 2026-11-15 (S4): the front end's own search API, POST
+      api.rooster.jobs/jobSearch/jobs/search {query, limit, page, filters: {country: "Sri Lanka"}},
+      returns full postings (Markdown description, location, company, job type, remote flag,
+      salary for ~1/4). ~1,068 Sri Lanka postings in 22 pages of 50 (~30 s); other countries are
+      dropped. No closing date anywhere, so recheck reads job.active from the job page's
+      __NEXT_DATA__; unknown ids redirect to /404-page (soft 404). max_details caps new jobs kept
+      per scan (no detail fetches). No human check seen.
+
+  # ---- P2 boards
+  - id: itpro
+    name: ITPro.lk
+    kind: board
+    priority: P2
+    hosts: [itpro.lk]
+    enabled: true
+    slow: true
+    tiers: [T0, T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      Verified 2026-11-15 (plain HTTP, no human check; Cloudflare in front). T0 sitemap.xml lists every
+      open job as /job/<id>/<slug>/ (867), RSS /rss/all/ (25 newest) is the fallback listing; detail pages
+      carry JobPosting JSON-LD. Apply is ITPro's own form. validThrough is a 90-day board default, not the
+      employer deadline, so the ad's "Apply before" date is used. robots.txt asks Crawl-delay 10.
+      Live dry run: 867 listed, 3/3 details parsed.
+  - id: careers360
+    name: Careers360.lk
+    kind: board
+    priority: P2
+    hosts: [careers360.lk]
+    enabled: false
+    slow: true
+    tiers: [T0, T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      2026-11-15: not a job board. Every path (/, /jobs, /sitemap.xml) serves a "Hotjobs | Coming Soon"
+      page that redirects to www.hotjobs.lk, already scanned by the hotjobs source. Adapter is a stub
+      that fails the source with this reason.
+  - id: jobber
+    name: jobber.lk
+    kind: board
+    priority: P2
+    hosts: [jobber.lk]
+    enabled: false
+    slow: true
+    tiers: [T0, T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      2026-11-15: unreachable. Cloudflare answers "error code: 522" (origin server down) over https,
+      https://www and http, on every try. Nothing could be seen, so no parsing is written; the adapter
+      is a stub that fails the source with this reason. Re-check the site before writing one.
+  - id: jobsnet
+    name: JobsNet.lk
+    kind: board
+    priority: P2
+    hosts: [jobsnet.lk]
+    enabled: false
+    slow: true
+    tiers: [T0, T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      2026-11-15: no job site. https has a self-signed certificate; http serves a stock "Success! Your new
+      web server is ready to use." page; www.jobsnet.lk does not resolve. The adapter is a stub that
+      fails the source with this reason.
+  - id: dreamjobs
+    name: dreamjobs.lk
+    kind: board
+    priority: P2
+    hosts: [dreamjobs.lk]
+    enabled: true
+    slow: true
+    tiers: [T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      Verified 2026-11-15 (plain HTTP, no human check; no sitemap.xml, RSS or API). Listing is /jobs
+      ("Browse Jobs", open jobs only; the home page also shows expired ads); external id is the URL slug.
+      Detail pages have JobPosting JSON-LD (boilerplate description) and the ad is usually an image.
+      Apply is the site's own form. Very low volume: live dry run 4 listed, 4/4 parsed, all image ads.
+
+  # ---- P3 government
+  - id: governmentjobs
+    name: governmentjobs.lk (aggregator)
+    kind: government
+    priority: P3
+    hosts: [governmentjobs.lk, gazette.lk]
+    enabled: true
+    slow: true
+    tiers: [T1, T5]
+    max_details: 300
+    delay_ms: 1500
+    options: {}
+    notes: >-
+      Verified 2026-11-15 on governmentjobs.lk (plain HTTP, no human check; no sitemap, RSS or JSON-LD).
+      index.php?page=1&ipp=All& lists every open vacancy on one page (55) with closing date, ref no,
+      institution and published date; external id is vacancy_details.php's aid. Ads are images
+      (image-view.php → S3 JPEGs) or Google Drive files, so every job is an image ad for the vision path.
+      Live dry run: 55 listed, 3/3 parsed. gazette.lk and gazette.governmentjobs.lk (gazette PDFs) were
+      not checked and are not scanned.
+
+# Hosts that are never scanned. `slj jobs add` uses them to label a pasted link.
+platforms:
+  - id: successfactors
+    name: SAP SuccessFactors career sites
+    kind: ats
+    hosts: ["*.successfactors.com", "*.successfactors.eu", "*.sapsf.com", "*.sapsf.eu", jobs.sap.com]
+  - id: doenets
+    name: Department of Examinations (doenets.lk)
+    kind: government
+    hosts: [doenets.lk, onlineexams.gov.lk]
+    notes: Never pay exam fees.
+  - id: rakiya
+    name: Rakiya
+    kind: ats
+    hosts: [rakiya.lk]
+  - id: jobguide
+    name: jobguide.lk
+    kind: board
+    hosts: [jobguide.lk]
+  - id: linkedin
+    name: LinkedIn
+    kind: network
+    hosts: [linkedin.com, lnkd.in]
+    fetch_policy: no_automated_fetch
+    notes: Never scraped. The person pastes the text or a screenshot.
+  - id: facebook
+    name: Facebook
+    kind: social
+    hosts: [facebook.com, fb.com, fb.watch, m.facebook.com]
+    fetch_policy: no_automated_fetch
+    notes: Ask for a screenshot. Always scam-checked.
+  - id: whatsapp
+    name: WhatsApp
+    kind: social
+    hosts: [whatsapp.com, wa.me, chat.whatsapp.com]
+    fetch_policy: no_automated_fetch
+    notes: Ask for a screenshot. Always scam-checked.

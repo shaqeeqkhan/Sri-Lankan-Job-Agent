@@ -1,0 +1,10 @@
+{
+  "key": "data",
+  "title": "Junior Data Analyst",
+  "company": "Serendib Insights (Pvt) Ltd",
+  "location": "Colombo 03",
+  "closing_date": "2026-11-30",
+  "apply_email": "careers@serendibinsights.example",
+  "description": "We are looking for a Junior Data Analyst. Requirements: degree in Statistics, IT or a related field; strong SQL; advanced Excel; Power BI or Tableau dashboards; Python is an advantage; 1-2 years experience. Experience with Snowflake and Looker is a plus.",
+  "keywords": ["SQL", "Excel", "Power BI", "Tableau", "Python", "Snowflake", "dashboards"]
+}

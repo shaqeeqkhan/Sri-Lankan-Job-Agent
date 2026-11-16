@@ -1,0 +1,6 @@
+- id: metric-reconciliation-days
+  text: I brought the month-end bank reconciliations down from 5 days to 2 days at Hill Country Hardware.
+  kind: metric
+  source: interview
+  confirmed: true
+  added_at: "2026-11-11T08:00:00.000Z"

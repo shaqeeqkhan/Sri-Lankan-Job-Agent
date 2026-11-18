@@ -42,14 +42,18 @@ A report looks like this (from a test CV; companies and numbers are made up):
 **How your CV reads to this market:** strong on SQL and Power BI; the gap that costs you most is
 no cloud (AWS/Azure) in 9 of the top 20.
 
-| # | Fit | Role | Company | Location | Closes | Apply via | Link | Why |
-|---|-----|------|---------|----------|--------|-----------|------|-----|
+| # | Fit | Role | Company | Location | Closes | Apply via | Job post | Why it was picked |
+|---|-----|------|---------|----------|--------|-----------|----------|-------------------|
 | 1 | ★★★★★ | Data Analyst | Example Telco PLC | Colombo 02 | 22 Nov | xpress.jobs | [View ad](https://…) | 5/5 must-haves, SQL + Power BI named |
 | 2 | ★★★★☆ | BI Developer | Example IT (Pvt) Ltd | Colombo | 30 Nov | Workday | [View ad](https://…) | Meets all but SSIS (partial) |
 | … |
 | 20 | ★★☆☆☆ | Analytics Executive | … | Kandy | 25 Nov | ikman.lk | [View ad](https://…) | Outside your districts; 2 gaps |
 
 Say "CV for #2" to get a tailored CV, "why #5?" for the full breakdown, or "more jobs" for the next 20.
+
+---
+
+_Built by Shaqeeq Khan · [shaqeeqkhan.com](https://shaqeeqkhan.com)_
 ```
 
 Stars are absolute, not curved. If your CV is a weak match for what is advertised right now, you will see mostly ★★, with the gaps that cost the most named. It never suggests claiming something you have not done.

@@ -147,8 +147,8 @@ This keeps token cost bounded no matter how many jobs the scan finds.
 **How your CV reads to this market:** strong on SQL and Power BI; the gap that costs you most is
 no cloud (AWS/Azure) in 9 of the top 20. Fixing that one line could lift 6 jobs by a star.
 
-| # | Fit | Role | Company | Location | Closes | Apply via | Link | Why |
-|---|-----|------|---------|----------|--------|-----------|------|-----|
+| # | Fit | Role | Company | Location | Closes | Apply via | Job post | Why it was picked |
+|---|-----|------|---------|----------|--------|-----------|----------|-------------------|
 | 1 | ★★★★★ | Data Analyst | Example Telco PLC | Colombo 02 | 22 Nov | xpress.jobs | [View ad](https://…) | 5/5 must-haves, SQL + Power BI named |
 | 2 | ★★★★☆ | BI Developer | Example IT (Pvt) Ltd | Colombo | 30 Nov | Workday | [View ad](https://…) | Meets all but SSIS (partial) |
 | … |

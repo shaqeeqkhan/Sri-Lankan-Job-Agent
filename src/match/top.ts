@@ -177,6 +177,9 @@ export function recurringGaps(rows: { n: number; gaps: string[] }[], max = 10): 
 
 const CLOSING_LINE = 'Say **"CV for #2"** to get a tailored CV, **"why #5?"** for the full breakdown, or **"more jobs"** for the next 20.';
 
+/** Credit line printed under every page and at the end of the report file. */
+const FOOTER = '_Built by Shaqeeq Khan · [shaqeeqkhan.com](https://shaqeeqkhan.com)_';
+
 /** The pieces of the day's report: the header lines and a table for any set of numbers. */
 function reportParts(ctx: Context, r: DayReport, info: { open: number; scored: number; sites: number }) {
   const ids = r.numbered;
@@ -191,8 +194,8 @@ function reportParts(ctx: Context, r: DayReport, info: { open: number; scored: n
     return `| ${n} | ${row.fit} | ${cell(job.title)}${closed} | ${cell(job.company)} | ${cell(job.location)} | ${shortDate(job.closing_date)} | ${cell(row.apply_via)} | ${linkCell(row.url)} | ${cell(score.why)} |`;
   };
   const table = (numbers: number[]) => [
-    '| # | Fit | Role | Company | Location | Closes | Apply via | Link | Why |',
-    '|---|-----|------|---------|----------|--------|-----------|------|-----|',
+    '| # | Fit | Role | Company | Location | Closes | Apply via | Job post | Why it was picked |',
+    '|---|-----|------|---------|----------|--------|-----------|----------|-------------------|',
     ...numbers.map(line),
   ];
   const fmt = (n: number) => n.toLocaleString('en-US');
@@ -217,7 +220,7 @@ function writeReport(ctx: Context, r: DayReport, info: { open: number; scored: n
     }
     out.push(...table(p.numbers), '');
   });
-  out.push(CLOSING_LINE, '');
+  out.push(CLOSING_LINE, '', '---', '', FOOTER, '');
   fs.mkdirSync(ctx.paths.reportsDir, { recursive: true });
   const file = reportPath(ctx, r.report_date);
   fs.writeFileSync(file, out.join('\n'));
@@ -234,7 +237,7 @@ function pageMarkdown(ctx: Context, r: DayReport, info: { open: number; scored: 
   const lo = Math.min(...numbers);
   const hi = Math.max(...numbers);
   const head = lo === 1 ? header : [`## #${lo}–#${hi}${label ? ` (${label})` : ''}`, '', header[2], ''];
-  return [...head, ...table(numbers), '', CLOSING_LINE].join('\n');
+  return [...head, ...table(numbers), '', CLOSING_LINE, '', '---', '', FOOTER].join('\n');
 }
 
 function widenedOptions(widened: string[]): PoolOptions {

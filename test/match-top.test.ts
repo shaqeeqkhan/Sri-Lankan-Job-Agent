@@ -56,7 +56,8 @@ test('three pages give 60 distinct jobs numbered #1–#60; numbering is fixed fo
   assert.match(file, /^## Your top 20 — 15 Nov 2026 \(scanned 70 open jobs from 1 site\)/);
   assert.match(file, /_Showing 60 of 70 scored, 70 open\._/);
   assert.match(file, /\*\*How your CV reads to this market:\*\* Strong on SQL/);
-  assert.match(file, /\| # \| Fit \| Role \| Company \| Location \| Closes \| Apply via \| Link \| Why \|/);
+  assert.match(file, /\| # \| Fit \| Role \| Company \| Location \| Closes \| Apply via \| Job post \| Why it was picked \|/);
+  assert.match(file, /Built by Shaqeeq Khan · \[shaqeeqkhan\.com\]\(https:\/\/shaqeeqkhan\.com\)/);
   assert.match(file, /^## #21–#40$/m);
   assert.match(file, /^## #41–#60$/m);
   assert.match(file, /^\| 1 \| ★★★★★ \| Data Analyst \| Company \d+ \| Colombo 03 \| 1 Dec \| jobs\d+@example\.lk \| \[View ad\]\(https:\/\/xpress\.jobs\/jobs\/\d+\) \| SQL and Power BI named; cloud missing \|$/m);

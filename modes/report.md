@@ -8,7 +8,7 @@ Show the person their top 20 jobs, page through "more jobs", and explain any one
 2. `./slj top --brief --json`. It numbers the rows #1–#20 for today, writes `user/reports/<date>-top20.md`, and returns `recurring_gaps`, `scam_rows`, `short_by` and `next_step`.
 3. `./slj jobs recheck --top --json` re-checks the jobs being shown. Only if it closed any (`closed > 0`), run step 2 again: closed jobs drop out (`dropped` lists their numbers, which stay retired for the day) and the page is topped up with new numbers.
 4. Write the **"How your CV reads to this market"** paragraph from `recurring_gaps` (each gap, how many of the top 20 it hits, and which numbers). Name the 1–3 gaps that recur most and what fixing each would unlock ("no cloud (AWS/Azure) in 9 of the top 20; adding real cloud work could lift about 6 jobs by a star"). Say what the CV is strong on. **Never suggest claiming something the person hasn't done.** Save it: `./slj top --brief --summary "<paragraph>" --json`. Same numbers; the paragraph goes into the report.
-5. Show `page_markdown` from that result in chat **exactly as it is**: header, running total, paragraph, table (`# | Fit | Role | Company | Location | Closes | Apply via | Link | Why`) and closing line. Do not read the report file as well, and do not rebuild the table yourself.
+5. Show `page_markdown` from that result in chat **exactly as it is**: header, running total, paragraph, table (`# | Fit | Role | Company | Location | Closes | Apply via | Job post | Why it was picked`), closing line and the "Built by Shaqeeq Khan" footer. Do not read the report file as well, and do not rebuild the table yourself.
 6. Under it, show the recurring gaps as a table, most-hit first:
 
    | Gap | Jobs affected | Numbers | What would fix it |

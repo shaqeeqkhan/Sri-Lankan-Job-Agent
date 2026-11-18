@@ -95,7 +95,14 @@ When neither slj nor your tools can load the page, or the site is `no_automated_
 ## 6. After the scan
 
 - Continue with `modes/score.md`, then `modes/report.md` (which re-checks the jobs it shows).
-- Summarise the scan for the person in one or two lines: how many open jobs, how many new, and any site that was missed, stale or low. No tables of sources unless they ask.
+- Summarise the scan for the person in a table, one row per job site, sorted with problems first:
+
+  | Job site | Status | New jobs | Open jobs | Note |
+  | --- | --- | --- | --- | --- |
+  | xpress.jobs | ⚠️ Low | 3 | 41 | Far fewer than usual; layout may have changed |
+  | topjobs.lk | ✅ OK | 58 | 612 | |
+
+  End with a **Total** row (new and open jobs across all sites). Status is ✅ OK, ⚠️ Stale, ⚠️ Low or ❌ Missed, and the Note says the plain-words reason from §2. `slj sources doctor` results use the same columns.
 
 ## Never
 

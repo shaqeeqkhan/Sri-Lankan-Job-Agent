@@ -106,9 +106,19 @@ How to infer each field:
 ./slj profile check --json
 ```
 
-If `valid` is `false`, fix every item in `problems` and run it again. When it is valid, say `summary` to the person **as one line**, for example:
+If `valid` is `false`, fix every item in `problems` and run it again. When it is valid, show the assumptions from `summary` as a short table, then the closing line, for example:
 
-> I've assumed you're looking for junior Data Analyst or BI Analyst roles in Colombo (or Gampaha and Kalutara), hybrid OK, with about 2.5 years of experience. Say "change" to fix any of that. Scanning now.
+> I've assumed the following:
+>
+> | What | Assumed |
+> | --- | --- |
+> | Roles | Junior Data Analyst, BI Analyst |
+> | Location | Colombo (or Gampaha, Kalutara) |
+> | Work mode | Hybrid OK |
+> | Experience | About 2.5 years |
+> | CV style | Modern |
+>
+> Say "change" to fix any of that. Scanning now.
 
 Mention a `warnings` item only if it changes what they will see (for example, no location). Then go straight on to scanning (`modes/scan.md`) **without waiting for an answer**. Do not ask "is that right?".
 
@@ -117,7 +127,7 @@ Mention a `warnings` item only if it changes what they will see (for example, no
 They may answer at any point, even mid-scan ("I want remote only", "not Kandy, Colombo", "I'm aiming for team lead now").
 
 - Edit only the fields they mentioned, set each one's `inferred: false`, and leave the rest as they are. A field the person stated is never overwritten by inference again, even after a new CV import.
-- Run `./slj profile check --json` and say the new `summary` line.
+- Run `./slj profile check --json` and show the updated assumptions table (same columns as step 6).
 - If titles, seniority, location, districts or work mode changed, the earlier ranking no longer fits: re-run matching (`modes/score.md`) and the top 20 (`modes/report.md`). Changing only `cv_style` or `salary_floor` needs no re-score.
 
 ## Rules for this mode

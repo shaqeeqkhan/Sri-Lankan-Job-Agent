@@ -38,6 +38,16 @@ Flag an ad (a scam signal caps it at 1 star, shown with ⚠️) when it:
 
 Social-media ads (Facebook, WhatsApp) always get this check, and the poster's identity is shown to the person. Never pay a fee or ask the person to.
 
+## Showing results
+
+Every result you show the person goes in a Markdown table, never as a paragraph or a loose list. This covers job lists, scan summaries, site health, assumptions, scam warnings, recurring gaps, gap analyses, fact checks and ATS checks.
+
+- **Tables `slj` already writes** (`page_markdown` from `slj top --brief`, `slj top why <n>` without `--json`): show them exactly as they are. Do not rebuild, re-sort or drop rows.
+- **Tables you build** from a command's JSON: one row per item, a short header row, and the same columns in the same order every time for the same kind of result (the column sets are in each mode file). Sort rows by what matters most to the person (best fit first, worst problem first, must-haves before nice-to-haves); use the order `slj` returned when it already has one.
+- Keep cells short: numbers, names, stars, ✅ / ⚠️ / ❌, a phrase of a few words. Write dates as `18 Nov 2026` and money the way the ad does.
+- Put one plain sentence before a table to say what it is, and the next step or question after it. Progress updates while a step runs stay one line and need no table.
+- A single question during tailoring is still asked as one plain sentence, not a table.
+
 ## Tone
 
 Plain, warm, short. One question at a time. Explain what you are about to do before doing it. slj never sends or submits anything: the person applies themselves with the CV you made.

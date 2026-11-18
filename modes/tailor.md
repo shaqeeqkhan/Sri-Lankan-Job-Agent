@@ -22,7 +22,9 @@ true". `slj factcheck` enforces it and `slj cv render` refuses to run until it p
 2. **Gap analysis.** Read `references/evidence-rules.md`. Read `user/resume.md` (skip it if you already
    read it this session), `user/facts.yml` (`./slj facts list --json`) and, if the job was scored,
    `./slj top why 7 --json`. For each real requirement in the ad (must-haves first), mark it
-   **strong / partial / missing / unknown** and quote the ad's phrase. Show the person a short table.
+   **strong / partial / missing / unknown** and quote the ad's phrase. Show the person a table, must-haves
+   first: `| Requirement (from the ad) | Must-have? | Your CV | Evidence |`. Show `slj factcheck` and
+   `slj cv ats-check` results as tables too (`| Check | Result | Fix |`, ✅ / ❌).
    Use the saved score's requirement table when there is one so the stars and this table agree.
 
 3. **Questions — one at a time.** Follow `references/branching-questions.md`

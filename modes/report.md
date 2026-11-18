@@ -8,7 +8,18 @@ Show the person their top 20 jobs, page through "more jobs", and explain any one
 2. `./slj top --brief --json`. It numbers the rows #1–#20 for today, writes `user/reports/<date>-top20.md`, and returns `recurring_gaps`, `scam_rows`, `short_by` and `next_step`.
 3. `./slj jobs recheck --top --json` re-checks the jobs being shown. Only if it closed any (`closed > 0`), run step 2 again: closed jobs drop out (`dropped` lists their numbers, which stay retired for the day) and the page is topped up with new numbers.
 4. Write the **"How your CV reads to this market"** paragraph from `recurring_gaps` (each gap, how many of the top 20 it hits, and which numbers). Name the 1–3 gaps that recur most and what fixing each would unlock ("no cloud (AWS/Azure) in 9 of the top 20; adding real cloud work could lift about 6 jobs by a star"). Say what the CV is strong on. **Never suggest claiming something the person hasn't done.** Save it: `./slj top --brief --summary "<paragraph>" --json`. Same numbers; the paragraph goes into the report.
-5. Show `page_markdown` from that result in chat **exactly as it is**: header, running total, paragraph, table (`# | Fit | Role | Company | Location | Closes | Apply via | Link | Why`) and closing line. Do not read the report file as well, and do not rebuild the table yourself. For each number in `scam_rows` (⚠️ in the Fit column), say what the signal was (`./slj top why <n>`) and warn the person not to pay anything or send documents.
+5. Show `page_markdown` from that result in chat **exactly as it is**: header, running total, paragraph, table (`# | Fit | Role | Company | Location | Closes | Apply via | Link | Why`) and closing line. Do not read the report file as well, and do not rebuild the table yourself.
+6. Under it, show the recurring gaps as a table, most-hit first:
+
+   | Gap | Jobs affected | Numbers | What would fix it |
+   | --- | --- | --- | --- |
+   | No cloud (AWS/Azure) | 9 of 20 | #2, #5, #7… | Real cloud project work |
+
+7. If `scam_rows` is not empty, show one more table (`./slj top why <n>` gives each signal), then say in one line not to pay anything or send documents:
+
+   | # | Job | Warning sign |
+   | --- | --- | --- |
+   | ⚠️ 14 | Data Entry, ABC Holdings | Asks for a Rs. 2,500 registration fee |
 
 **Always 20.** If `short_by > 0`, follow `next_step` (below) before you show a short list. Only show fewer than 20 when `next_step.step` is `exhausted`, and say how many there were.
 
